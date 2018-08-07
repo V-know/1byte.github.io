@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="镜像编译以镜像percona为例，假如我们应用场景如下：现在需要向pernoa镜像中添加数据库自动备份功能 下载镜像12cd ~git clone ssh://gavinwei@git.example.com:29418/docker/bd/percona 操作percona代码123# cd ~/percona# ls pom.xml  proguard.conf  src 我们所需要操作都在s">
-<meta name="keywords" content="docker,container,percona,image">
+<meta name="description" content="客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。 为解决这个问题，决定使用Python Selenium模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。 Selenium很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵">
+<meta name="keywords" content="Selenium,Chromium">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Percona容器部署">
-<meta property="og:url" content="https://1byte.pro/docker/compile-image.html">
+<meta property="og:title" content="无GUI的CentOS上使用Selenium+Chrome">
+<meta property="og:url" content="https://1byte.pro/python/chromium-on-centos-for-selenium.html">
 <meta property="og:site_name" content="1 Byte">
-<meta property="og:description" content="镜像编译以镜像percona为例，假如我们应用场景如下：现在需要向pernoa镜像中添加数据库自动备份功能 下载镜像12cd ~git clone ssh://gavinwei@git.example.com:29418/docker/bd/percona 操作percona代码123# cd ~/percona# ls pom.xml  proguard.conf  src 我们所需要操作都在s">
+<meta property="og:description" content="客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。 为解决这个问题，决定使用Python Selenium模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。 Selenium很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-09-07T11:45:14.000Z">
+<meta property="og:updated_time" content="2018-08-07T08:03:07.724Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Percona容器部署">
-<meta name="twitter:description" content="镜像编译以镜像percona为例，假如我们应用场景如下：现在需要向pernoa镜像中添加数据库自动备份功能 下载镜像12cd ~git clone ssh://gavinwei@git.example.com:29418/docker/bd/percona 操作percona代码123# cd ~/percona# ls pom.xml  proguard.conf  src 我们所需要操作都在s">
+<meta name="twitter:title" content="无GUI的CentOS上使用Selenium+Chrome">
+<meta name="twitter:description" content="客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。 为解决这个问题，决定使用Python Selenium模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。 Selenium很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Percona容器部署 | 1 Byte</title>
+<title>无GUI的CentOS上使用Selenium+Chrome | 1 Byte</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -270,11 +270,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-compile-image" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-chromium-on-centos-for-selenium" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/docker/compile-image.html" class="article-date">
-      <time datetime="2016-09-07T09:46:14.000Z" itemprop="datePublished">2016-09-07</time>
+      <a href="/python/chromium-on-centos-for-selenium.html" class="article-date">
+      <time datetime="2018-08-07T07:54:09.000Z" itemprop="datePublished">2018-08-07</time>
 </a>
 
 
@@ -289,7 +289,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Percona容器部署
+      无GUI的CentOS上使用Selenium+Chrome
     </h1>
   
 
@@ -298,13 +298,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/docker/">docker</a>
+    <a class="article-category-link" href="/categories/python/">python</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/container/">container</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/percona/">percona</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chromium/">Chromium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -314,23 +314,39 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="镜像编译"><a href="#镜像编译" class="headerlink" title="镜像编译"></a>镜像编译</h2><p>以镜像percona为例，假如我们应用场景如下：<br>现在需要向pernoa镜像中添加数据库自动备份功能</p>
-<h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">git <span class="built_in">clone</span> ssh://gavinwei@git.example.com:29418/docker/bd/percona</span><br></pre></td></tr></table></figure>
-<h3 id="操作percona代码"><a href="#操作percona代码" class="headerlink" title="操作percona代码"></a>操作percona代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd ~/percona</span></span><br><span class="line"><span class="comment"># ls </span></span><br><span class="line">pom.xml  proguard.conf  src</span><br></pre></td></tr></table></figure>
-<p>我们所需要操作都在src目录的最底层：<br><a id="more"></a><br><code>cd src/main/docker/</code></p>
-<p>在src/main/docker/目录下添加要新增的文件及脚本，并修改Dockerfile文件</p>
-<h3 id="使用MAVEN进行编译"><a href="#使用MAVEN进行编译" class="headerlink" title="使用MAVEN进行编译"></a>使用MAVEN进行编译</h3><p>全部修改完成后，回到percona顶层目录：</p>
-<p><code>cd ~/pernona</code></p>
-<h4 id="自动获取镜像版本号："><a href="#自动获取镜像版本号：" class="headerlink" title="自动获取镜像版本号："></a>自动获取镜像版本号：</h4><p><code>mvn -U versions:resolve-ranges</code></p>
-<h4 id="正式编译"><a href="#正式编译" class="headerlink" title="正式编译"></a>正式编译</h4><p><code>mvn clean package -X</code></p>
-<h3 id="将镜像导入dind"><a href="#将镜像导入dind" class="headerlink" title="将镜像导入dind"></a>将镜像导入dind</h3><p><code>docker save docker.example.com/jira:0.0.1-SNAPSHOT | ssh -C &quot;你的帐户名&quot;@dind1.docker.example.com &quot;sudo docker load&quot;</code></p>
-<p>这里的帐户名为我们邮件地址中@前面的名称，以下同理。</p>
-<p>这一步完成后，窗口dind.1中已经有了我们重新编辑过镜像</p>
-<p>此时有两种方法来使用该镜像来启动容器</p>
-<h2 id="方法1：-使用fab脚本"><a href="#方法1：-使用fab脚本" class="headerlink" title="方法1： 使用fab脚本"></a>方法1： 使用fab脚本</h2><p>这种方法在之前的邮件DIND的安装中有提到过，使用<code>fab deploy:hosts=&quot;${HOSTS}&quot;</code>命令进行部署</p>
-<h2 id="方法2：进入dind-1，直接运行run-puppet脚本"><a href="#方法2：进入dind-1，直接运行run-puppet脚本" class="headerlink" title="方法2：进入dind.1，直接运行run-puppet脚本"></a>方法2：进入dind.1，直接运行run-puppet脚本</h2><p>进行入dind.1<br><code>docker exec -it dind.1 bash</code></p>
-<p>运行脚本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/你的用户名</span><br><span class="line"><span class="comment">#以debug模式运行puppet，便于排错</span></span><br><span class="line">./run-puppet --debug</span><br></pre></td></tr></table></figure>
+        <p>客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。</p>
+<p>为解决这个问题，决定使用Python <code>Selenium</code>模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。</p>
+<p><code>Selenium</code>很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵涉到在无GUI的服务器上安装浏览器的问题，我这里选择的是Chrome。</p>
+<hr>
+<p>下面简单分享一个部署过程中遇到的坑，也当作是总结。<br><a id="more"></a></p>
+<h3 id="一、安装Chromium"><a href="#一、安装Chromium" class="headerlink" title="一、安装Chromium"></a>一、安装Chromium</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y epel-release</span><br><span class="line">yum install -y chromium</span><br></pre></td></tr></table></figure>
+<p>检测安装结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># ll /usr/bin/ | grep chrom</span><br><span class="line">-rwxr-xr-x.   1 root root    8136192 Jun  7 17:02 chromedriver</span><br><span class="line">lrwxrwxrwx.   1 root root         47 Aug  6 16:51 chromium -&gt; /usr/lib64/chromium-browser/chromium-browser.sh</span><br></pre></td></tr></table></figure>
+<h3 id="二、安装XVFB"><a href="#二、安装XVFB" class="headerlink" title="二、安装XVFB"></a>二、安装XVFB</h3><p><code>XVFB</code>全称为：<code>virtual framebuffer X server for X Version 11</code>，可以直接处理Windows的图形化功能，并且不会把图像输出到屏幕上，也就是说，就算你的电脑没有启动Xwindow，也依然也可以执行图形化软件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install xorg-x11-fonts* Xvfb -y</span><br></pre></td></tr></table></figure>
+<h3 id="三、编写浏览器启动脚本"><a href="#三、编写浏览器启动脚本" class="headerlink" title="三、编写浏览器启动脚本"></a>三、编写浏览器启动脚本</h3><p>利用xvfb来启动Chromium，并设置参数</p>
+<p><code>vim /usr/bin/xvfb-chromium</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">_kill_procs() &#123;</span><br><span class="line">  kill -TERM $chromium</span><br><span class="line">  wait $chromium</span><br><span class="line">  kill -TERM $xvfb</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Setup a trap to catch SIGTERM and relay it to child processes</span><br><span class="line">trap _kill_procs SIGTERM</span><br><span class="line"></span><br><span class="line">XVFB_WHD=$&#123;XVFB_WHD:-1280x720x16&#125;</span><br><span class="line"></span><br><span class="line"># Start Xvfb</span><br><span class="line">Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &amp;</span><br><span class="line">xvfb=$!</span><br><span class="line"></span><br><span class="line">export DISPLAY=:99</span><br><span class="line"></span><br><span class="line">chromium --no-sandbox  --disable-dev-shm-usage --headless --disable-gp $@ &amp;</span><br><span class="line">chromium=$!</span><br><span class="line"></span><br><span class="line">wait $chromium</span><br><span class="line">wait $xvfb</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上代码参考：<a href="https://github.com/mark-adams/docker-chromium-xvfb/blob/master/images/base/xvfb-chromium" target="_blank" rel="noopener">https://github.com/mark-adams/docker-chromium-xvfb/blob/master/images/base/xvfb-chromium</a> ，修改了第20行，添加了三个参数预防一些异常报错</p>
+</blockquote>
+<p>为脚本添加可执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/bin/xvfb-chromium</span><br></pre></td></tr></table></figure>
+<h3 id="四、更改链接，调整命令"><a href="#四、更改链接，调整命令" class="headerlink" title="四、更改链接，调整命令"></a>四、更改链接，调整命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/lib64/chromium-browser/chromium-browser.sh /usr/bin/chromium</span><br><span class="line">rm -rf /usr/bin/chromium-browser</span><br><span class="line">ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser</span><br><span class="line">ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome</span><br></pre></td></tr></table></figure>
+<p>检测调整结果，显示如下所示，即表示正确</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># ll /usr/bin/ | grep chrom*</span><br><span class="line">-rwxr-xr-x.   1 root root    8136192 Jun  7 17:02 chromedriver</span><br><span class="line">lrwxrwxrwx.   1 root root         47 Aug  6 16:51 chromium -&gt; /usr/lib64/chromium-browser/chromium-browser.sh</span><br><span class="line">lrwxrwxrwx.   1 root root         22 Aug  6 16:51 chromium-browser -&gt; /usr/bin/xvfb-chromium</span><br><span class="line">lrwxrwxrwx.   1 root root         22 Aug  6 16:51 google-chrome -&gt; /usr/bin/xvfb-chromium</span><br><span class="line">-rwxr-xr-x.   1 root root        422 Aug  7 10:37 xvfb-chromium</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考：<a href="https://hub.docker.com/r/markadams/chromium-xvfb/~/dockerfile/" target="_blank" rel="noopener">https://hub.docker.com/r/markadams/chromium-xvfb/~/dockerfile/</a></p>
+</blockquote>
+<h3 id="五、遇到的问题"><a href="#五、遇到的问题" class="headerlink" title="五、遇到的问题"></a>五、遇到的问题</h3><p>最学见的报错：</p>
+<p><code>selenium.common.exceptions.WebDriverException: Message: unknown error: DevToolsActivePort file doesn&#39;t exist</code></p>
+<p>这个报错由两个原因导致<br>第一个是原因是参数设置问题，可直接添加相关参数即可<br>在Python代码中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(&apos;--headless&apos;)</span><br><span class="line">chrome_options.add_argument(&apos;--no-sandbox&apos;)</span><br><span class="line">chrome_options.add_argument(&apos;--disable-dev-shm-usage&apos;)</span><br><span class="line">driver = webdriver.Chrome(&apos;/path/to/your_chrome_driver_dir/chromedriver&apos;,chrome_options=chrome_options)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考：<a href="https://github.com/heroku/heroku-buildpack-google-chrome/issues/46" target="_blank" rel="noopener">https://github.com/heroku/heroku-buildpack-google-chrome/issues/46</a></p>
+</blockquote>
+<p>或者把上述参数添加在本文每三步的脚本中</p>
+<p>另一个会导致这个报错的原因是在编写完第三的步脚本<code>/usr/bin/xvfb-chromium</code>后没有给其赋予可执行权限把致。</p>
 
       
     </div>
@@ -339,13 +355,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/docker/compile-image.html">Percona容器部署</a></p>
+        <p><span>本文标题:</span><a href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
-        <p><span>发布时间:</span>2016-09-07, 09:46:14</p>
-        <p><span>最后更新:</span>2016-09-07, 11:45:14</p>
+        <p><span>发布时间:</span>2018-08-07, 07:54:09</p>
+        <p><span>最后更新:</span>2018-08-07, 08:03:07</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/docker/compile-image.html" title="Percona容器部署">https://1byte.pro/docker/compile-image.html</a>
-            <span class="copy-path" data-clipboard-text="原文: https://1byte.pro/docker/compile-image.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/python/chromium-on-centos-for-selenium.html" title="无GUI的CentOS上使用Selenium+Chrome">https://1byte.pro/python/chromium-on-centos-for-selenium.html</a>
+            <span class="copy-path" data-clipboard-text="原文: https://1byte.pro/python/chromium-on-centos-for-selenium.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -357,16 +373,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/docker/add-logrotate-to-percona-container.html">
-                    percona容器添加logrotate功能
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/docker/ss5.html">
-                    SS5 Installation
+                <a href="/voice/v.html">
+                    V
                 </a>
             </div>
         
@@ -378,7 +388,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#镜像编译"><span class="toc-number">1.</span> <span class="toc-text">镜像编译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载镜像"><span class="toc-number">1.1.</span> <span class="toc-text">下载镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作percona代码"><span class="toc-number">1.2.</span> <span class="toc-text">操作percona代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用MAVEN进行编译"><span class="toc-number">1.3.</span> <span class="toc-text">使用MAVEN进行编译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自动获取镜像版本号："><span class="toc-number">1.3.1.</span> <span class="toc-text">自动获取镜像版本号：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正式编译"><span class="toc-number">1.3.2.</span> <span class="toc-text">正式编译</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将镜像导入dind"><span class="toc-number">1.4.</span> <span class="toc-text">将镜像导入dind</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法1：-使用fab脚本"><span class="toc-number">2.</span> <span class="toc-text">方法1： 使用fab脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法2：进入dind-1，直接运行run-puppet脚本"><span class="toc-number">3.</span> <span class="toc-text">方法2：进入dind.1，直接运行run-puppet脚本</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装Chromium"><span class="toc-number">1.</span> <span class="toc-text">一、安装Chromium</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装XVFB"><span class="toc-number">2.</span> <span class="toc-text">二、安装XVFB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、编写浏览器启动脚本"><span class="toc-number">3.</span> <span class="toc-text">三、编写浏览器启动脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、更改链接，调整命令"><span class="toc-number">4.</span> <span class="toc-text">四、更改链接，调整命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、遇到的问题"><span class="toc-number">5.</span> <span class="toc-text">五、遇到的问题</span></a></li></ol>
         
     </div>
     <style>
@@ -414,7 +424,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Percona容器部署　| 1 Byte　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"无GUI的CentOS上使用Selenium+Chrome　| 1 Byte　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -430,7 +440,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="docker/compile-image.html" data-title="Percona容器部署" data-url="https://1byte.pro/docker/compile-image.html"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="python/chromium-on-centos-for-selenium.html" data-title="无GUI的CentOS上使用Selenium+Chrome" data-url="https://1byte.pro/python/chromium-on-centos-for-selenium.html"></div>
     <script>
         var duoshuoQuery = {short_name:"54biker"};
         var loadComment = function(){
@@ -444,7 +454,7 @@
         
             // Add comment count
             $(function(){ 
-                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=54biker&threads=docker/compile-image.html&callback=?";
+                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=54biker&threads=python/chromium-on-centos-for-selenium.html&callback=?";
                 $.getJSON(jsonUrl, function(result){
                     $.each(result.response, function(i, field){
                         var value = field.comments;
@@ -492,15 +502,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/docker/add-logrotate-to-percona-container.html" title="上一篇: percona容器添加logrotate功能">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/docker/ss5.html" title="下一篇: SS5 Installation">
+            <a href="/voice/v.html" title="下一篇: V">
                 <i class="fa fa-angle-right"></i>
             </a>
         

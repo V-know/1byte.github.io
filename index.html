@@ -203,7 +203,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIND/">DIND</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V/">V</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/collectd/">collectd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/container/">container</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabfile/">fabfile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/">grafana</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphite/">graphite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jira/">jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lorote/">lorote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitoring/">monitoring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/percona/">percona</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/seyren/">seyren</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ss5/">ss5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作笔记/">工作笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志切割/">日志切割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雕虫小技/">雕虫小技</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chromium/">Chromium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIND/">DIND</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V/">V</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/collectd/">collectd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/container/">container</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabfile/">fabfile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/">grafana</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphite/">graphite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jira/">jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lorote/">lorote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitoring/">monitoring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/percona/">percona</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/seyren/">seyren</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ss5/">ss5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作笔记/">工作笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志切割/">日志切割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雕虫小技/">雕虫小技</a></li></ul>
                     </div>
                 </section>
                 
@@ -276,6 +276,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-chromium-on-centos-for-selenium" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/python/chromium-on-centos-for-selenium.html" class="article-date">
+      <time datetime="2018-08-07T07:54:09.000Z" itemprop="datePublished">2018-08-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。</p>
+<p>为解决这个问题，决定使用Python <code>Selenium</code>模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。</p>
+<p><code>Selenium</code>很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵涉到在无GUI的服务器上安装浏览器的问题，我这里选择的是Chrome。</p>
+<hr>
+<p>下面简单分享一个部署过程中遇到的坑，也当作是总结。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chromium/">Chromium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/python/chromium-on-centos-for-selenium.html#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-v" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -305,28 +377,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>V’s speech is recognized by the analysts at Smith Change the World Incorporated as one of the most influential speeches of the near future.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">”Good evening, London. Allow me first to apologize for this interruption. I do, like many of you, appreciate the comforts of every day routine — the security of the familiar, the tranquility of repetition. I enjoy them as much as any bloke. But in the spirit of commemoration, whereby those important events of the past, usually associated with someone&apos;s death or the end of some awful bloody struggle, are celebrated with a nice holiday, I thought we could mark this November the 5th, a day that is sadly no longer remembered, by taking some time out of our daily lives to sit down and have a little chat. There are of course those who do not want us to speak. I suspect even now, orders are being shouted into telephones, and men with guns will soon be on their way. Why? Because while the truncheon may be used in lieu of conversation, words will always retain their power. Words offer the means to meaning, and for those who will listen, the enunciation of truth. And the truth is, there is something terribly wrong with this country, isn&apos;t there? Cruelty and injustice, intolerance and oppression. And where once you had the freedom to object, to think and speak as you saw fit, you now have censors and systems of surveillance coercing your conformity and soliciting your submission. How did this happen? Who&apos;s to blame? Well certainly there are those more responsible than others, and they will be held accountable, but again truth be told, if you&apos;re looking for the guilty, you need only look into a mirror. I know why you did it. I know you were afraid. Who wouldn&apos;t be? War, terror, disease. There were a myriad of problems which conspired to corrupt your reason and rob you of your common sense. Fear got the best of you, and in your panic you turned to the now high chancellor, Adam Sutler. He promised you order, he promised you peace, and all he demanded in return was your silent, obedient consent. Last night I sought to end that silence. Last night I destroyed the Old Bailey, to remind this country of what it has forgotten. More than 400 years ago a great citizen wished to embed the fifth of November forever in our memory. His hope was to remind the world that fairness, justice, and freedom are more than words, they are perspectives. So if you&apos;ve seen nothing, if the crimes of this government remain unknown to you then I would suggest that you allow the fifth of November to pass unmarked. But if you see what I see, if you feel as I feel, and if you would seek as I seek, then I ask you to stand beside me one year from tonight, outside the gates of Parliament, and together we shall give them a fifth of November that shall never, ever be forgot&quot; (&quot;V for Vendetta (Film)”).</span><br></pre></td></tr></table></figure>
-<h4 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis:"></a>Analysis:</h4><p><code>”Because while the truncheon may be used in lieu of conversation, words will always retain their power&quot; (&quot;V for Vendetta (Film)”).</code></p>
-<ul>
-<li>Comparable to the Thought Police in 1984 or the Gestapo from Nazi Germany. Both used force to create submission, but both powers feared words more than anything else. The fought to destroy any writings that conflicted with beliefs.</li>
-<li>The Department of Homeland Security in Little Brother uses force in order to create control over the city of San Francisco. Marcus realizes that words do indeed have more power than brute force, thus manipulating the Xnet in a form of nonviolent protest. Gandhi used the same tactics in his protest against Great Britain, he is quoted, “Non-violence is the greatest force at the disposal of mankind. It is mightier than the mightiest weapon of destruction devised by the ingenuity of man.” (“V for Vendetta (Film)”)</li>
-</ul>
-<p><code>”And where once you had the freedom to object, to think and speak as you saw fit, you now have censors and systems of surveillance coercing your conformity and soliciting your submission&quot; (&quot;V for Vendetta (Film)”).</code></p>
-<ul>
-<li>As in both Little Brother and 1984, the ability to think or reject is removed by the government. Both are then replaced with, “censors and systems of surveillance” (“V for Vendetta (Film)”).</li>
-<li>The “soliciting” of and individual’s submission is a main theme in 1984, as Winston find himself “solicited” by Big Brother. The posters and telescreens are constant reminders of his presence, and as Winston says, “The presence of Big Brother was not just known, you were reminded of it ever time you walked outside your home” (Orwell, 1984, 101).</li>
-</ul>
-<p><code>”if you&#39;re looking for the guilty, you need only look into a mirror.&quot; (&quot;V for Vendetta (Film)”)</code></p>
-<ul>
-<li>During the collapse of societies, there is always the attempt to create a scapegoat. Usually the scapegoat is the minorities of the community. An example of this would be in Hitler’s Germany. Hitler was able to create an accepted blame on the Jews for the depression, and used the support behind the scapegoat in order to rise to power. After Hitler had been defeated, many citizen of Germany claimed that they had no idea of what was happening to the Jews and other minorities in their society. Yet, they were just blinded by their faith in Hitler and were unable to blame themselves.</li>
-<li>In society today, people look for someone to blame for economic, social, and political problems. All of these problems are cause by each and every individual in the society. Whether it be overspending, close-mindedness, or even the lack of participation in a democratic government.</li>
-</ul>
-<p><code>”His hope was to remind the world that fairness, justice, and freedom are more than words, they are perspectives.&quot; (&quot;V for Vendetta (Film)”)</code></p>
-<ul>
-<li>Regardless of how much censorship is implemented on a society, fairness, justice, and freedom will be everlasting. Perspectives cannot be destroyed and cannot be forgotten.</li>
-</ul>
-
+              <p>V’s speech is recognized by the analysts at Smith Change the World Incorporated as one of the most influential speeches of the near future.<br>
+          
       
     </div>
     
@@ -343,6 +395,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/V/">V</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/voice/v.html#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -901,77 +957,6 @@
       
         <p class="article-more-link">
           <a href="/docker/add-logrotate-to-percona-container.html#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-compile-image" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/docker/compile-image.html" class="article-date">
-      <time datetime="2016-09-07T09:46:14.000Z" itemprop="datePublished">2016-09-07</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/docker/compile-image.html">Percona容器部署</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="镜像编译"><a href="#镜像编译" class="headerlink" title="镜像编译"></a>镜像编译</h2><p>以镜像percona为例，假如我们应用场景如下：<br>现在需要向pernoa镜像中添加数据库自动备份功能</p>
-<h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">git <span class="built_in">clone</span> ssh://gavinwei@git.example.com:29418/docker/bd/percona</span><br></pre></td></tr></table></figure>
-<h3 id="操作percona代码"><a href="#操作percona代码" class="headerlink" title="操作percona代码"></a>操作percona代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd ~/percona</span></span><br><span class="line"><span class="comment"># ls </span></span><br><span class="line">pom.xml  proguard.conf  src</span><br></pre></td></tr></table></figure>
-<p>我们所需要操作都在src目录的最底层：<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/docker/">docker</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/container/">container</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/percona/">percona</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/docker/compile-image.html#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
