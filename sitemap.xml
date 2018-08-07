@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/about/index.html</loc>
+    
+    <lastmod>2018-08-07T10:30:41.467Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/voice/v.html</loc>
     
     <lastmod>2018-08-07T08:03:23.057Z</lastmod>
@@ -75,13 +82,6 @@
     <loc>http://1byte.pro/docker/add-logrotate-to-percona-container.html</loc>
     
     <lastmod>2016-09-08T04:08:07.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/about/index.html</loc>
-    
-    <lastmod>2016-09-08T03:35:06.000Z</lastmod>
     
   </url>
   
