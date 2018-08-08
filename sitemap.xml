@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
+    
+    <lastmod>2018-08-08T09:43:58.400Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
+    
+    <lastmod>2018-08-08T09:43:26.833Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/issues/gitlab-trouble-shooting.html</loc>
     
     <lastmod>2018-08-08T04:58:11.076Z</lastmod>

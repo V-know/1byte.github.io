@@ -15,18 +15,20 @@
 
 
 
-<meta name="description" content="客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。 为解决这个问题，决定使用Python Selenium模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。 Selenium很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵">
-<meta name="keywords" content="Selenium,Chromium">
+<meta name="description" content="一、FreeIPA介绍FreeIPA是Redhat公司推出的开源软件，是一款集成的安全信息管理解决方案。其特点如下：  集成多种服务（389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag certificate system, SSSD），简化安装配置 提供WEB、命令行两种管理工具，方便管理 多主复制，可扩展，高可用 接口丰富，支持CLI、 W">
+<meta name="keywords" content="FreeIPA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="无GUI的CentOS上使用Selenium+Chrome">
-<meta property="og:url" content="http://1byte.pro/python/chromium-on-centos-for-selenium.html">
+<meta property="og:title" content="FreeIPA Server端部署">
+<meta property="og:url" content="http://1byte.pro/devops/install-freeip-server-on-centos.html">
 <meta property="og:site_name" content="Just 1 Byte">
-<meta property="og:description" content="客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。 为解决这个问题，决定使用Python Selenium模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。 Selenium很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵">
+<meta property="og:description" content="一、FreeIPA介绍FreeIPA是Redhat公司推出的开源软件，是一款集成的安全信息管理解决方案。其特点如下：  集成多种服务（389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag certificate system, SSSD），简化安装配置 提供WEB、命令行两种管理工具，方便管理 多主复制，可扩展，高可用 接口丰富，支持CLI、 W">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-07T08:03:07.724Z">
+<meta property="og:image" content="http://1byte.pro/images/freeipa/free-ipa-server.png">
+<meta property="og:updated_time" content="2018-08-08T09:34:43.070Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="无GUI的CentOS上使用Selenium+Chrome">
-<meta name="twitter:description" content="客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。 为解决这个问题，决定使用Python Selenium模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。 Selenium很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵">
+<meta name="twitter:title" content="FreeIPA Server端部署">
+<meta name="twitter:description" content="一、FreeIPA介绍FreeIPA是Redhat公司推出的开源软件，是一款集成的安全信息管理解决方案。其特点如下：  集成多种服务（389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag certificate system, SSSD），简化安装配置 提供WEB、命令行两种管理工具，方便管理 多主复制，可扩展，高可用 接口丰富，支持CLI、 W">
+<meta name="twitter:image" content="http://1byte.pro/images/freeipa/free-ipa-server.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>无GUI的CentOS上使用Selenium+Chrome | Just 1 Byte</title>
+<title>FreeIPA Server端部署 | Just 1 Byte</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -260,11 +262,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-chromium-on-centos-for-selenium" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-install-freeip-server-on-centos" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/python/chromium-on-centos-for-selenium.html" class="article-date">
-      <time datetime="2018-08-07T07:54:09.000Z" itemprop="datePublished">2018-08-07</time>
+      <a href="/devops/install-freeip-server-on-centos.html" class="article-date">
+      <time datetime="2018-02-08T09:25:23.000Z" itemprop="datePublished">2018-02-08</time>
 </a>
 
 
@@ -279,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      无GUI的CentOS上使用Selenium+Chrome
+      FreeIPA Server端部署
     </h1>
   
 
@@ -288,13 +290,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/python/">python</a>
+    <a class="article-category-link" href="/categories/devops/">devops</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chromium/">Chromium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FreeIPA/">FreeIPA</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -304,39 +306,33 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。</p>
-<p>为解决这个问题，决定使用Python <code>Selenium</code>模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。</p>
-<p><code>Selenium</code>很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵涉到在无GUI的服务器上安装浏览器的问题，我这里选择的是Chrome。</p>
-<hr>
-<p>下面简单分享一个部署过程中遇到的坑，也当作是总结。<br><a id="more"></a></p>
-<h3 id="一、安装Chromium"><a href="#一、安装Chromium" class="headerlink" title="一、安装Chromium"></a>一、安装Chromium</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y epel-release</span><br><span class="line">yum install -y chromium</span><br></pre></td></tr></table></figure>
-<p>检测安装结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># ll /usr/bin/ | grep chrom</span><br><span class="line">-rwxr-xr-x.   1 root root    8136192 Jun  7 17:02 chromedriver</span><br><span class="line">lrwxrwxrwx.   1 root root         47 Aug  6 16:51 chromium -&gt; /usr/lib64/chromium-browser/chromium-browser.sh</span><br></pre></td></tr></table></figure>
-<h3 id="二、安装XVFB"><a href="#二、安装XVFB" class="headerlink" title="二、安装XVFB"></a>二、安装XVFB</h3><p><code>XVFB</code>全称为：<code>virtual framebuffer X server for X Version 11</code>，可以直接处理Windows的图形化功能，并且不会把图像输出到屏幕上，也就是说，就算你的电脑没有启动Xwindow，也依然也可以执行图形化软件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install xorg-x11-fonts* Xvfb -y</span><br></pre></td></tr></table></figure>
-<h3 id="三、编写浏览器启动脚本"><a href="#三、编写浏览器启动脚本" class="headerlink" title="三、编写浏览器启动脚本"></a>三、编写浏览器启动脚本</h3><p>利用xvfb来启动Chromium，并设置参数</p>
-<p><code>vim /usr/bin/xvfb-chromium</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">_kill_procs() &#123;</span><br><span class="line">  kill -TERM $chromium</span><br><span class="line">  wait $chromium</span><br><span class="line">  kill -TERM $xvfb</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Setup a trap to catch SIGTERM and relay it to child processes</span><br><span class="line">trap _kill_procs SIGTERM</span><br><span class="line"></span><br><span class="line">XVFB_WHD=$&#123;XVFB_WHD:-1280x720x16&#125;</span><br><span class="line"></span><br><span class="line"># Start Xvfb</span><br><span class="line">Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &amp;</span><br><span class="line">xvfb=$!</span><br><span class="line"></span><br><span class="line">export DISPLAY=:99</span><br><span class="line"></span><br><span class="line">chromium --no-sandbox  --disable-dev-shm-usage --headless --disable-gp $@ &amp;</span><br><span class="line">chromium=$!</span><br><span class="line"></span><br><span class="line">wait $chromium</span><br><span class="line">wait $xvfb</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>以上代码参考：<a href="https://github.com/mark-adams/docker-chromium-xvfb/blob/master/images/base/xvfb-chromium" target="_blank" rel="noopener">https://github.com/mark-adams/docker-chromium-xvfb/blob/master/images/base/xvfb-chromium</a> ，修改了第20行，添加了三个参数预防一些异常报错</p>
-</blockquote>
-<p>为脚本添加可执行权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/bin/xvfb-chromium</span><br></pre></td></tr></table></figure>
-<h3 id="四、更改链接，调整命令"><a href="#四、更改链接，调整命令" class="headerlink" title="四、更改链接，调整命令"></a>四、更改链接，调整命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/lib64/chromium-browser/chromium-browser.sh /usr/bin/chromium</span><br><span class="line">rm -rf /usr/bin/chromium-browser</span><br><span class="line">ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser</span><br><span class="line">ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome</span><br></pre></td></tr></table></figure>
-<p>检测调整结果，显示如下所示，即表示正确</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># ll /usr/bin/ | grep chrom*</span><br><span class="line">-rwxr-xr-x.   1 root root    8136192 Jun  7 17:02 chromedriver</span><br><span class="line">lrwxrwxrwx.   1 root root         47 Aug  6 16:51 chromium -&gt; /usr/lib64/chromium-browser/chromium-browser.sh</span><br><span class="line">lrwxrwxrwx.   1 root root         22 Aug  6 16:51 chromium-browser -&gt; /usr/bin/xvfb-chromium</span><br><span class="line">lrwxrwxrwx.   1 root root         22 Aug  6 16:51 google-chrome -&gt; /usr/bin/xvfb-chromium</span><br><span class="line">-rwxr-xr-x.   1 root root        422 Aug  7 10:37 xvfb-chromium</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参考：<a href="https://hub.docker.com/r/markadams/chromium-xvfb/~/dockerfile/" target="_blank" rel="noopener">https://hub.docker.com/r/markadams/chromium-xvfb/~/dockerfile/</a></p>
-</blockquote>
-<h3 id="五、遇到的问题"><a href="#五、遇到的问题" class="headerlink" title="五、遇到的问题"></a>五、遇到的问题</h3><p>最学见的报错：</p>
-<p><code>selenium.common.exceptions.WebDriverException: Message: unknown error: DevToolsActivePort file doesn&#39;t exist</code></p>
-<p>这个报错由两个原因导致<br>第一个是原因是参数设置问题，可直接添加相关参数即可<br>在Python代码中添加：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(&apos;--headless&apos;)</span><br><span class="line">chrome_options.add_argument(&apos;--no-sandbox&apos;)</span><br><span class="line">chrome_options.add_argument(&apos;--disable-dev-shm-usage&apos;)</span><br><span class="line">driver = webdriver.Chrome(&apos;/path/to/your_chrome_driver_dir/chromedriver&apos;,chrome_options=chrome_options)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参考：<a href="https://github.com/heroku/heroku-buildpack-google-chrome/issues/46" target="_blank" rel="noopener">https://github.com/heroku/heroku-buildpack-google-chrome/issues/46</a></p>
-</blockquote>
-<p>或者把上述参数添加在本文每三步的脚本中</p>
-<p>另一个会导致这个报错的原因是在编写完第三的步脚本<code>/usr/bin/xvfb-chromium</code>后没有给其赋予可执行权限把致。</p>
+        <h2 id="一、FreeIPA介绍"><a href="#一、FreeIPA介绍" class="headerlink" title="一、FreeIPA介绍"></a>一、FreeIPA介绍</h2><p>FreeIPA是Redhat公司推出的开源软件，是一款集成的安全信息管理解决方案。其特点如下：</p>
+<ul>
+<li>集成多种服务（389 Directory Server, MIT Kerberos, NTP, DNS, Dogtag certificate system, SSSD），简化安装配置</li>
+<li>提供WEB、命令行两种管理工具，方便管理</li>
+<li>多主复制，可扩展，高可用</li>
+<li>接口丰富，支持CLI、 Web UI、 XMLRPC、JSONRPC API、Python SDK</li>
+</ul>
+<a id="more"></a>
+<p><img src="/images/freeipa/free-ipa-server.png" alt="FreeIPA Server"></p>
+<h3 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h3><ul>
+<li>MIT KDC：IPA 认证的核心</li>
+<li>389 Directory Server：轻量级目录访问</li>
+<li>Dogtag Certificate System：一款认证系统,提供强大的安全框架来确保用户的身份以及通讯的私密性</li>
+<li>SSSD：SSSD是红帽企业版Linux6中新加入的一个守护进程，该进程可以用来访问多种验证服务器，如LDAP，Kerberos等，并提供授权。SSSD是介于本地用户和数据存储之间的进程，本地客户端首先连接SSSD，再由SSSD联系外部资源提供者(一台远程服务器)</li>
+</ul>
+<h3 id="安装前检查："><a href="#安装前检查：" class="headerlink" title="安装前检查："></a>安装前检查：</h3><ul>
+<li>使用ntp同步时间</li>
+<li>防火墙关闭，或开放以下端口：TCP(80, 443,389, 636,88, 464) UDP(88, 464,123)</li>
+<li>配置hosts文件，设置完全合格的主机名（如：192.168.1.1 freeipa.fugetech.com.cn  freeipa）</li>
+</ul>
+<h2 id="二、FreeIPA服务端安装"><a href="#二、FreeIPA服务端安装" class="headerlink" title="二、FreeIPA服务端安装"></a>二、FreeIPA服务端安装</h2><p>FreeIPA的安装比较简单，首先安装软件包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipa-server-install</span><br></pre></td></tr></table></figure>
+<p>安装完成后，执行安装命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ipa-server bind-dyndb-ldap ipa-server-dns</span><br></pre></td></tr></table></figure>
+<p>开始安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">The log file for this installation can be found in /var/log/ipaserver-install.log</span><br><span class="line">================================================================</span><br><span class="line">This program will set up the IPA Server.</span><br><span class="line">This includes:</span><br><span class="line">  * Configure a stand-alone CA (dogtag) for certificate management</span><br><span class="line">  * Configure the Network Time Daemon (ntpd)</span><br><span class="line">  * Create and configure an instance of Directory Server</span><br><span class="line">  * Create and configure a Kerberos Key Distribution Center (KDC)</span><br><span class="line">  * Configure Apache (httpd)</span><br><span class="line">To accept the default shown in brackets, press the Enter key.</span><br><span class="line">Enter the fully qualified domain name of the computer</span><br><span class="line">on which you&apos;re setting up server software. Using the form</span><br><span class="line">&lt;hostname&gt;.&lt;domainname&gt;</span><br><span class="line">Example: master1.douyu.com.</span><br><span class="line">Server host name [master1.douyu.com]:       #回车确认</span><br><span class="line"></span><br><span class="line">The domain name has been determined based on the host name.</span><br><span class="line">Please confirm the domain name [master1.douyu]: #回车确认</span><br><span class="line"></span><br><span class="line">The kerberos protocol requires a Realm name to be defined.</span><br><span class="line">This is typically the domain name converted to uppercase.</span><br><span class="line">Please provide a realm name [master1.douyu]:#回车确认</span><br><span class="line"></span><br><span class="line">Certain directory server operations require an administrative user.</span><br><span class="line">This user is referred to as the Directory Manager and has full access</span><br><span class="line">to the Directory for system management tasks and will be added to the</span><br><span class="line">instance of directory server created for IPA.</span><br><span class="line">The password must be at least 8 characters long.</span><br><span class="line"></span><br><span class="line">Directory Manager password:douyu123 #设置活动目录管理密码</span><br><span class="line">Password (confirm):redn.net</span><br><span class="line">The IPA server requires an administrative user, named &apos;admin&apos;.</span><br><span class="line">This user is a regular system account used for IPA server administration.</span><br><span class="line"></span><br><span class="line">IPA admin password:redn.net #设置IPA admin管理密码</span><br><span class="line">Password (confirm):redn.net</span><br><span class="line">The IPA Master Server will be configured with:</span><br><span class="line">Hostname:      master1.douyu.com</span><br><span class="line">IP address:    172.24.30.100</span><br><span class="line">Domain name:   example.com</span><br><span class="line">Realm name:    EXAMPLE.COM</span><br><span class="line">Continue to configure the system with these values? [no]:yes    #输入yes 确认配置</span><br><span class="line">The following operations may take some minutes to complete.</span><br><span class="line">Please wait until the prompt is returned.</span><br><span class="line"></span><br><span class="line">…………………………#等待安装完成</span><br><span class="line">Sample zone file for bind has been created in /tmp/sample.zone.Jd9cwk.db</span><br><span class="line">Restarting the web server</span><br><span class="line">==============================================================</span><br><span class="line">Setup complete</span><br><span class="line">Next steps:</span><br><span class="line">        1. You must make sure these network ports are open:</span><br><span class="line">                TCP Ports:</span><br><span class="line">                  * 80, 443: HTTP/HTTPS</span><br><span class="line">                  * 389, 636: LDAP/LDAPS</span><br><span class="line">                  * 88, 464: kerberos</span><br><span class="line">                UDP Ports:</span><br><span class="line">                  * 88, 464: kerberos</span><br><span class="line">                  * 123: ntp</span><br><span class="line">        2. You can now obtain a kerberos ticket using the command: &apos;kinit admin&apos;</span><br><span class="line">           This ticket will allow you to use the IPA tools (e.g., ipa user-add)</span><br><span class="line">           and the web user interface.</span><br><span class="line">Be sure to back up the CA certificate stored in /root/cacert.p12</span><br><span class="line">This file is required to create replicas. The password for this</span><br><span class="line">file is the Directory Manager password</span><br></pre></td></tr></table></figure>
+<p>安装完成后，打开浏览器，输入：https://<freeipa server="" ip="">/ 地址，即可打开web管理界面。</freeipa></p>
 
       
     </div>
@@ -345,13 +341,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></p>
+        <p><span>本文标题:</span><a href="/devops/install-freeip-server-on-centos.html">FreeIPA Server端部署</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
-        <p><span>发布时间:</span>2018-08-07, 07:54:09</p>
-        <p><span>最后更新:</span>2018-08-07, 08:03:07</p>
+        <p><span>发布时间:</span>2018-02-08, 09:25:23</p>
+        <p><span>最后更新:</span>2018-08-08, 09:34:43</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/python/chromium-on-centos-for-selenium.html" title="无GUI的CentOS上使用Selenium+Chrome">http://1byte.pro/python/chromium-on-centos-for-selenium.html</a>
-            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/python/chromium-on-centos-for-selenium.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/devops/install-freeip-server-on-centos.html" title="FreeIPA Server端部署">http://1byte.pro/devops/install-freeip-server-on-centos.html</a>
+            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/devops/install-freeip-server-on-centos.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -364,15 +360,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/issues/gitlab-trouble-shooting.html">
-                    Gitlab问题小结
+                <a href="/voice/v.html">
+                    V
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/voice/v.html">
-                    V
+                <a href="/monitoring/collectd.html">
+                    collectd
                 </a>
             </div>
         
@@ -384,7 +380,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装Chromium"><span class="toc-number">1.</span> <span class="toc-text">一、安装Chromium</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装XVFB"><span class="toc-number">2.</span> <span class="toc-text">二、安装XVFB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、编写浏览器启动脚本"><span class="toc-number">3.</span> <span class="toc-text">三、编写浏览器启动脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、更改链接，调整命令"><span class="toc-number">4.</span> <span class="toc-text">四、更改链接，调整命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、遇到的问题"><span class="toc-number">5.</span> <span class="toc-text">五、遇到的问题</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、FreeIPA介绍"><span class="toc-number">1.</span> <span class="toc-text">一、FreeIPA介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#名词解释"><span class="toc-number">1.1.</span> <span class="toc-text">名词解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装前检查："><span class="toc-number">1.2.</span> <span class="toc-text">安装前检查：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、FreeIPA服务端安装"><span class="toc-number">2.</span> <span class="toc-text">二、FreeIPA服务端安装</span></a></li></ol>
         
     </div>
     <style>
@@ -411,7 +407,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="python/chromium-on-centos-for-selenium.html" data-title="无GUI的CentOS上使用Selenium+Chrome" data-url="http://1byte.pro/python/chromium-on-centos-for-selenium.html"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="devops/install-freeip-server-on-centos.html" data-title="FreeIPA Server端部署" data-url="http://1byte.pro/devops/install-freeip-server-on-centos.html"></div>
     <script>
         var duoshuoQuery = {short_name:"54biker"};
         var loadComment = function(){
@@ -425,7 +421,7 @@
         
             // Add comment count
             $(function(){ 
-                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=54biker&threads=python/chromium-on-centos-for-selenium.html&callback=?";
+                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=54biker&threads=devops/install-freeip-server-on-centos.html&callback=?";
                 $.getJSON(jsonUrl, function(result){
                     $.each(result.response, function(i, field){
                         var value = field.comments;
@@ -473,7 +469,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/issues/gitlab-trouble-shooting.html" title="上一篇: Gitlab问题小结">
+            <a href="/voice/v.html" title="上一篇: V">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -481,13 +477,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/voice/v.html" title="下一篇: V">
+            <a href="/monitoring/collectd.html" title="下一篇: collectd">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-client.html">FreeIPA Client 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-server-on-centos.html">FreeIPA Server 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeip-server-on-centos.html">FreeIPA Server端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
 
 
 
