@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
+    
+    <lastmod>2018-08-09T07:54:25.582Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/jenkins/jenkins.html</loc>
+    
+    <lastmod>2018-08-09T07:53:32.079Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/monitoring/grafana.html</loc>
+    
+    <lastmod>2018-08-08T10:04:21.320Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
     
     <lastmod>2018-08-08T09:51:43.353Z</lastmod>
@@ -65,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/monitoring/grafana.html</loc>
-    
-    <lastmod>2016-09-18T07:49:55.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://1byte.pro/monitoring/graphite.html</loc>
     
     <lastmod>2016-09-18T03:48:44.000Z</lastmod>
@@ -82,13 +96,6 @@
     <loc>http://1byte.pro/python/date-of-python.html</loc>
     
     <lastmod>2016-09-14T09:40:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/jenkins/jenkins.html</loc>
-    
-    <lastmod>2016-09-08T06:05:22.000Z</lastmod>
     
   </url>
   
