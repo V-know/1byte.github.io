@@ -349,13 +349,13 @@
             
             <tag> docker </tag>
             
+            <tag> percona </tag>
+            
             <tag> container </tag>
             
             <tag> lorote </tag>
             
             <tag> 日志切割 </tag>
-            
-            <tag> percona </tag>
             
             <tag> python </tag>
             
@@ -382,11 +382,11 @@
             
             <tag> docker </tag>
             
-            <tag> container </tag>
+            <tag> image </tag>
             
             <tag> percona </tag>
             
-            <tag> image </tag>
+            <tag> container </tag>
             
         </tags>
       
