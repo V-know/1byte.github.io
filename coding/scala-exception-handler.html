@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="Just 1 Byte">
 <meta property="og:description" content="在处理第11行读文件时，由于数据文件出现的不规律，在指定日期内可能存在日志文件交不存在的情况，这里需要处理下异常： 123456789101112131415161718192021def readLog(sc: SparkContext, startDate: String, endDate: String, logNames: List[String]): RDD[String] = &amp;#12">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-21T10:28:41.882Z">
+<meta property="og:updated_time" content="2018-08-21T10:42:38.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala异常获取一例">
 <meta name="twitter:description" content="在处理第11行读文件时，由于数据文件出现的不规律，在指定日期内可能存在日志文件交不存在的情况，这里需要处理下异常： 123456789101112131415161718192021def readLog(sc: SparkContext, startDate: String, endDate: String, logNames: List[String]): RDD[String] = &amp;#12">
@@ -312,7 +312,7 @@
 <p>  最初犯的错误是把try catch放在了union语句的上层，导致异常是被抓取了，但是RDD却未被正确赋值。</p>
 <p>  除了上述方法，还可通过重写文件读取接口实现异常的捕获与RDD的正常赋值：</p>
   <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">textFileFromObjectStorage</span></span>(path: <span class="type">String</span>, numOfCoalesce: <span class="type">Int</span> = <span class="number">0</span>): <span class="type">RDD</span>[<span class="type">String</span>] = &#123;</span><br><span class="line">  <span class="keyword">val</span> data = sc.newAPIHadoopFile(path</span><br><span class="line">    , classOf[<span class="type">EmptiableTextInputFormat</span>]</span><br><span class="line">    , classOf[<span class="type">LongWritable</span>]</span><br><span class="line">    , classOf[<span class="type">Text</span>]</span><br><span class="line">    , sc.hadoopConfiguration)</span><br><span class="line">    .map &#123;</span><br><span class="line">      x =&gt;</span><br><span class="line">        x._2.toString</span><br><span class="line">    &#125;</span><br><span class="line">  numOfCoalesce <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span> =&gt;</span><br><span class="line">      data</span><br><span class="line">    <span class="keyword">case</span> _ =&gt;</span><br><span class="line">      data.coalesce(numOfCoalesce)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  newAPIHadoopFile说明，参考：<a href="https://spark.apache.org/docs/2.0.2/api/java/org/apache/spark/SparkContext.html#newAPIHadoopFile(java.lang.String,%20scala.reflect.ClassTag,%20scala.reflect.ClassTag,%20scala.reflect.ClassTag" target="_blank" rel="noopener">newAPIHadoopFile Doc</a>)</p>
+<p>newAPIHadoopFile说明，参考：<a href="https://spark.apache.org/docs/2.0.2/api/java/org/apache/spark/SparkContext.html#newAPIHadoopFile%28java.lang.String,%20java.lang.Class,%20java.lang.Class,%20java.lang.Class,%20org.apache.hadoop.conf.Configuration%29" target="_blank" rel="noopener">newAPIHadoopFile Doc</a></p>
 
       
     </div>
@@ -324,7 +324,7 @@
         <p><span>本文标题:</span><a href="/coding/scala-exception-handler.html">Scala异常获取一例</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
         <p><span>发布时间:</span>2018-08-21, 09:55:51</p>
-        <p><span>最后更新:</span>2018-08-21, 10:28:41</p>
+        <p><span>最后更新:</span>2018-08-21, 10:42:38</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/coding/scala-exception-handler.html" title="Scala异常获取一例">http://1byte.pro/coding/scala-exception-handler.html</a>
             <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/coding/scala-exception-handler.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
