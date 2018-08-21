@@ -2,72 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/coding/scala-exception-handler.html</loc>
+    
+    <lastmod>2018-08-21T10:19:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/opinions/fake-chrome.html</loc>
     
-    <lastmod>2018-08-17T02:55:48.995Z</lastmod>
+    <lastmod>2018-08-17T02:55:48.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/issues/jira-over-https.html</loc>
     
-    <lastmod>2018-08-09T08:00:17.859Z</lastmod>
+    <lastmod>2018-08-09T08:00:17.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/jenkins/jenkins.html</loc>
     
-    <lastmod>2018-08-09T07:53:32.079Z</lastmod>
+    <lastmod>2018-08-09T07:53:32.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/monitoring/grafana.html</loc>
     
-    <lastmod>2018-08-08T10:04:21.320Z</lastmod>
+    <lastmod>2018-08-08T10:04:21.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
     
-    <lastmod>2018-08-08T09:51:43.353Z</lastmod>
+    <lastmod>2018-08-08T09:51:43.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
     
-    <lastmod>2018-08-08T09:43:26.833Z</lastmod>
+    <lastmod>2018-08-08T09:43:26.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/issues/gitlab-trouble-shooting.html</loc>
     
-    <lastmod>2018-08-08T04:58:11.076Z</lastmod>
+    <lastmod>2018-08-08T04:58:11.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/about/index.html</loc>
     
-    <lastmod>2018-08-08T04:56:08.286Z</lastmod>
+    <lastmod>2018-08-08T04:56:08.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/voice/v.html</loc>
     
-    <lastmod>2018-08-07T08:03:23.057Z</lastmod>
+    <lastmod>2018-08-07T08:03:23.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/python/chromium-on-centos-for-selenium.html</loc>
     
-    <lastmod>2018-08-07T08:03:07.724Z</lastmod>
+    <lastmod>2018-08-07T08:03:07.000Z</lastmod>
     
   </url>
   
