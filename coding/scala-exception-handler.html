@@ -18,14 +18,14 @@
 <meta name="description" content="在处理第11行读文件时，由于数据文件出现的不规律，在指定日期内可能存在日志文件交不存在的情况，这里需要处理下异常： 123456789101112131415161718192021def readLog(sc: SparkContext, startDate: String, endDate: String, logNames: List[String]): RDD[String] = &amp;#12">
 <meta name="keywords" content="Scala,Exception">
 <meta property="og:type" content="article">
-<meta property="og:title" content="scala-exception-handler">
+<meta property="og:title" content="Scala异常获取一例">
 <meta property="og:url" content="http://1byte.pro/coding/scala-exception-handler.html">
 <meta property="og:site_name" content="Just 1 Byte">
 <meta property="og:description" content="在处理第11行读文件时，由于数据文件出现的不规律，在指定日期内可能存在日志文件交不存在的情况，这里需要处理下异常： 123456789101112131415161718192021def readLog(sc: SparkContext, startDate: String, endDate: String, logNames: List[String]): RDD[String] = &amp;#12">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-21T10:19:17.000Z">
+<meta property="og:updated_time" content="2018-08-21T10:21:38.500Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="scala-exception-handler">
+<meta name="twitter:title" content="Scala异常获取一例">
 <meta name="twitter:description" content="在处理第11行读文件时，由于数据文件出现的不规律，在指定日期内可能存在日志文件交不存在的情况，这里需要处理下异常： 123456789101112131415161718192021def readLog(sc: SparkContext, startDate: String, endDate: String, logNames: List[String]): RDD[String] = &amp;#12">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>scala-exception-handler | Just 1 Byte</title>
+<title>Scala异常获取一例 | Just 1 Byte</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -281,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      scala-exception-handler
+      Scala异常获取一例
     </h1>
   
 
@@ -320,12 +320,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/coding/scala-exception-handler.html">scala-exception-handler</a></p>
+        <p><span>本文标题:</span><a href="/coding/scala-exception-handler.html">Scala异常获取一例</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
         <p><span>发布时间:</span>2018-08-21, 09:55:51</p>
-        <p><span>最后更新:</span>2018-08-21, 10:19:17</p>
+        <p><span>最后更新:</span>2018-08-21, 10:21:38</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/coding/scala-exception-handler.html" title="scala-exception-handler">http://1byte.pro/coding/scala-exception-handler.html</a>
+            <span>原始链接:</span><a class="post-url" href="/coding/scala-exception-handler.html" title="Scala异常获取一例">http://1byte.pro/coding/scala-exception-handler.html</a>
             <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/coding/scala-exception-handler.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -393,7 +393,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="coding/scala-exception-handler.html" data-title="scala-exception-handler" data-url="http://1byte.pro/coding/scala-exception-handler.html"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="coding/scala-exception-handler.html" data-title="Scala异常获取一例" data-url="http://1byte.pro/coding/scala-exception-handler.html"></div>
     <script>
         var duoshuoQuery = {short_name:"54biker"};
         var loadComment = function(){
@@ -467,7 +467,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/coding/scala-exception-handler.html">scala-exception-handler</a></li><li class="post-list-item"><a class="post-list-link" href="/opinions/fake-chrome.html">红芯浏览器下载</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/jira-over-https.html">Nginx开启HTTPS反向代理访问Jira失败</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-client.html">FreeIPA Client 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-server-on-centos.html">FreeIPA Server 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/coding/scala-exception-handler.html">Scala异常获取一例</a></li><li class="post-list-item"><a class="post-list-link" href="/opinions/fake-chrome.html">红芯浏览器下载</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/jira-over-https.html">Nginx开启HTTPS反向代理访问Jira失败</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-client.html">FreeIPA Client 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-server-on-centos.html">FreeIPA Server 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
 
 
 
