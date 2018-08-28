@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gavin Wei" />
+
+
+
+<meta name="description" content="Seyren (/ˈsaɪ.rʌn/) 是一款基于Graphite的报警平台，它支持下面这些报警通知方式：  Email, Flowdock, HipChat, HTTP, Hubot, IRCcat, PagerDuty, Pushover, SLF4J, Slack, SNMP, Twilio">
+<meta name="keywords" content="graphite,grafana,Monitoring,ubuntu,seyren">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deploy Seyren with Grafana on Ubuntu 14.04">
+<meta property="og:url" content="http://1byte.pro/Monitoring/seyren.html">
+<meta property="og:site_name" content="Just 1 Byte">
+<meta property="og:description" content="Seyren (/ˈsaɪ.rʌn/) 是一款基于Graphite的报警平台，它支持下面这些报警通知方式：  Email, Flowdock, HipChat, HTTP, Hubot, IRCcat, PagerDuty, Pushover, SLF4J, Slack, SNMP, Twilio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/Ae5gQJZ.png">
+<meta property="og:image" content="https://i.imgur.com/13nR3YA.png">
+<meta property="og:image" content="http://1byte.pro/images/seyren/seyren-mail.jpg">
+<meta property="og:image" content="https://secure.travis-ci.org/scobal/seyren.png?branch=master">
+<meta property="og:updated_time" content="2018-08-28T09:41:44.165Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deploy Seyren with Grafana on Ubuntu 14.04">
+<meta name="twitter:description" content="Seyren (/ˈsaɪ.rʌn/) 是一款基于Graphite的报警平台，它支持下面这些报警通知方式：  Email, Flowdock, HipChat, HTTP, Hubot, IRCcat, PagerDuty, Pushover, SLF4J, Slack, SNMP, Twilio">
+<meta name="twitter:image" content="https://i.imgur.com/Ae5gQJZ.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-big-counter.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Deploy Seyren with Grafana on Ubuntu 14.04 | Just 1 Byte</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b6bfb7348dc08eb"></script>
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gavin Wei</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">○|||||||○</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/about/">九评博主</a></li>
+                        
+                            <li><a href="/archives/">文章归档</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" href="https://github.com/v-know" title="Coding"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/178go" title="新浪微博"></a>
+                            
+                                <a class="fa Twitter" href="http://twitter.com/mrunamed" title="Twitter"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
+                            
+                                <a class="fa Quora" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
+                            
+                                <a class="fa CSDN" href="mailto:none@canstop.me" title="CSDN"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chromium/">Chromium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DIND/">DIND</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flume/">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FreeIPA/">FreeIPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gitlab/">Gitlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Issue/">Issue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jenkins/">Jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jira/">Jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Monitoring/">Monitoring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Selenium/">Selenium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Shame/">Shame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Troubleshooting/">Troubleshooting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/V/">V</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/collectd/">collectd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/container/">container</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabfile/">fabfile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/">grafana</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphite/">graphite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jira/">jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lorote/">lorote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/percona/">percona</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/seyren/">seyren</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ss5/">ss5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作笔记/">工作笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志切割/">日志切割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/红芯浏览器/">红芯浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雕虫小技/">雕虫小技</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">爱单车、爱Linux、学摄影</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gavin Wei</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gavin Wei</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">○|||||||○</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/about/">九评博主</a></li>
+                
+                    <li><a href="/archives/">文章归档</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Coding" target="_blank" href="https://github.com/v-know" title="Coding"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/178go" title="新浪微博"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="http://twitter.com/mrunamed" title="Twitter"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
+                            
+                                <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="mailto:none@canstop.me" title="CSDN"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-seyren" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/Monitoring/seyren.html" class="article-date">
+      <time datetime="2016-09-16T09:25:38.000Z" itemprop="datePublished">2016-09-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Deploy Seyren with Grafana on Ubuntu 14.04
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Monitoring/">Monitoring</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Monitoring/">Monitoring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/grafana/">grafana</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graphite/">graphite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/seyren/">seyren</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="https://i.imgur.com/Ae5gQJZ.png" height="45" width="200"></p>
+<p>Seyren (<a href="http://en.wikipedia.org/wiki/Wikipedia:IPA_for_English#Key" target="_blank" rel="noopener">/ˈsaɪ.rʌn/</a>) 是一款基于Graphite的报警平台，它支持下面这些报警通知方式：</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol" target="_blank" rel="noopener">Email</a>, <a href="https://www.flowdock.com" target="_blank" rel="noopener">Flowdock</a>, <a href="https://www.hipchat.com" target="_blank" rel="noopener">HipChat</a>, <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" rel="noopener">HTTP</a>, <a href="http://hubot.github.com" target="_blank" rel="noopener">Hubot</a>, <a href="https://github.com/RJ/irccat" target="_blank" rel="noopener">IRCcat</a>, <a href="http://www.pagerduty.com" target="_blank" rel="noopener">PagerDuty</a>, <a href="https://pushover.net" target="_blank" rel="noopener">Pushover</a>, <a href="http://www.slf4j.org" target="_blank" rel="noopener">SLF4J</a>, <a href="https://www.slack.com" target="_blank" rel="noopener">Slack</a>, <a href="http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol" target="_blank" rel="noopener">SNMP</a>, <a href="https://www.twilio.com/" target="_blank" rel="noopener">Twilio</a></li>
+</ul>
+<a id="more"></a>
+<p><a href="http://i.imgur.com/ahu3aM6.png" target="_blank" rel="noopener"><img src="https://i.imgur.com/13nR3YA.png" height="400" width="560"></a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Prerequisites-依赖软件"><a href="#Prerequisites-依赖软件" class="headerlink" title="Prerequisites/依赖软件"></a>Prerequisites/依赖软件</h3><ul>
+<li>An instance of Graphite</li>
+<li>MongoDB (<a href="http://docs.mongodb.org/manual/installation/#installation-guides Installing MongoDB" target="_blank" rel="noopener">Install instructions</a>)<br><strong>特别注意: Seyren目前只支持MongoDB 3.0版本，在安装的时候一定要特别注意使用正确的版本。</strong></li>
+</ul>
+<h3 id="Run-下载并运行软件包"><a href="#Run-下载并运行软件包" class="headerlink" title="Run/下载并运行软件包"></a>Run/下载并运行软件包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/scobal/seyren/releases/download/1.3.0/seyren-1.3.0.jar</span><br><span class="line">export GRAPHITE_URL=http://graphite.foohost.com:80</span><br><span class="line">java -jar seyren-1.3.0.jar</span><br><span class="line">open http://localhost:8080</span><br></pre></td></tr></table></figure>
+<p>To run seyren on another port:<br>指定Seyren的端口，默认使用8080端口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export SEYREN_URL=&quot;http://localhost:8081/seyren&quot;</span><br><span class="line">java -jar seyren-1.3.0.jar -httpPort=8081</span><br></pre></td></tr></table></figure>
+<h3 id="邮件报警界面"><a href="#邮件报警界面" class="headerlink" title="邮件报警界面"></a>邮件报警界面</h3><p><img src="/images/seyren/seyren-mail.jpg" alt="报警邮件"></p>
+<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><p>The following options can be supplied as system properties or environment variables.<br>有趣的是，Seyren的很多配置是通过定义环境变量的方式来实现的，并没有专门的配置文件来定义这些设置，具体的变量信息，参考下面的介绍：<br><strong>(注意：设置Base中的变量就能保证Seyren的正常运行)</strong></p>
+<h5 id="Base"><a href="#Base" class="headerlink" title="Base"></a>Base</h5><ul>
+<li><code>MONGO_URL</code> - The Mongo <a href="http://docs.mongodb.org/manual/reference/connection-string/" target="_blank" rel="noopener">connection string</a>. / MongoDB的地址，默认是：<code>mongodb://localhost:27017/seyren</code>；</li>
+<li><code>SEYREN_URL</code> - The location of your Seyren instance. / Seyren服务器的地址. 默认是: <code>http://localhost:8080/seyren</code>；</li>
+<li><code>SEYREN_LOG_PATH</code> - The path of seyren.log. Default: <code></code>. If a value is set, it must end with a ‘/‘. / Seyren日志seyren.log的存放路径，默认为空；如果要设置，则路径名称必须以”/“结尾；</li>
+<li><code>SEYREN_LOG_FILE_LEVEL</code> - The level of messages logged to the <code>file</code> appender (must correspond to a <a href="http://logback.qos.ch/" target="_blank" rel="noopener">Logback</a> log level. So one of <code>trace</code>, <code>debug</code>, <code>info</code>, <code>warn</code> or <code>error</code>). Default: <code>info</code>. / 定义日志的记录级别，各级别如下：<code>trace</code>, <code>debug</code>, <code>info</code>, <code>warn</code> or <code>error</code>；</li>
+<li><code>SEYREN_THREADS</code> - The number of pooled check threads to start. / Seyren发起查检请求的并发数，默认为<code>8</code>；</li>
+<li><code>GRAPHS_ENABLE</code> - Show(true) or hide(false) graphs in check page. Default: <code>true</code>. / 设置是否在check页面显示监控图，默认为<code>true</code>即显示监控图表。</li>
+</ul>
+<p><strong>以下为一些非必须的扩展选项，可按需查看使用</strong></p>
+<h5 id="Graphite"><a href="#Graphite" class="headerlink" title="Graphite"></a><a href="http://graphite.readthedocs.org/en/latest/" target="_blank" rel="noopener">Graphite</a></h5><ul>
+<li><code>GRAPHITE_URL</code> - The location of your Graphite server. Default: <code>http://localhost:80</code></li>
+<li><code>GRAPHITE_REFRESH</code> - The fixed period (in ms) between checks. Default: <code>60000</code></li>
+<li><code>GRAPHITE_USERNAME</code> - The HTTP Basic auth username for the Graphite server. Default: <code></code></li>
+<li><code>GRAPHITE_PASSWORD</code> - The HTTP Basic auth password for the Graphite server. Default: <code></code></li>
+<li><code>GRAPHITE_KEYSTORE</code> - The HTTP KeyStore path for the https Graphite server. Default: <code></code></li>
+<li><code>GRAPHITE_KEYSTORE_PASSWORD</code> - The HTTP KeyStore password for the HTTPS Graphite server. Default: <code></code></li>
+<li><code>GRAPHITE_TRUSTSTORE</code> - The HTTP TrustStore path for the https Graphite server. Default: <code></code></li>
+<li><code>GRAPHITE_CONNECTION_REQUEST_TIMEOUT</code> - The number of millisconds to wait to obtain a connection from the pool. Default: <code>0</code> (infinite)</li>
+<li><code>GRAPHITE_CONNECT_TIMEOUT</code> - The number of milliseconds to wait to establish a connection. Default: <code>0</code> (infinite)</li>
+<li><code>GRAPHITE_SOCKET_TIMEOUT</code> - The number of milliseconds to wait for request data. Default: <code>0</code> (infinite)</li>
+</ul>
+<h5 id="Email"><a href="#Email" class="headerlink" title="Email"></a><a href="http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol" target="_blank" rel="noopener">Email</a></h5><ul>
+<li><code>SMTP_HOST</code> - The smtp server to send email notifications from. Default: <code>localhost</code></li>
+<li><code>SMTP_PORT</code> - The smtp server port. Default: <code>25</code></li>
+<li><code>SMTP_FROM</code> - The from email address for sending out notifications. Default: <code>alert@seyren</code></li>
+<li><code>SMTP_USERNAME</code> - The smtp server username if authenticated SMTP is used. Default: <code></code></li>
+<li><code>SMTP_PASSWORD</code> - The smtp server password if authenticated SMTP is used. Default: <code></code></li>
+<li><code>SMTP_PROTOCOL</code> - The smtp server protocol if authenticated SMTP is used. Default: <code>smtp</code></li>
+</ul>
+<h5 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h5><ul>
+<li><code>HTTP_NOTIFICATION_URL</code> - The url for a resource that contains a POST HTTP Method. Default: <code></code></li>
+</ul>
+<h5 id="BigPanda-io"><a href="#BigPanda-io" class="headerlink" title="BigPanda.io"></a><a href="https://bigpanda.io" target="_blank" rel="noopener">BigPanda.io</a></h5><p>Use a <a href="https://a.bigpanda.io/#/app/integrations/alertsapi/instructions/alertsapi" target="_blank" rel="noopener">Big Panda App Key</a> as Target when adding a new subscription.</p>
+<ul>
+<li><code>BIGPANDA_NOTIFICATION_URL</code> - The url for a resource that contains a POST HTTP Method. Default: <code></code></li>
+<li><code>BIGPANDA_AUTH_BEARER</code> - The Authorization Bearer header that is assigned to each customer by BigPanda. See <a href="https://a.bigpanda.io/#/app/integrations/alertsapi/instructions/alertsapi" target="_blank" rel="noopener">Alerts API integration</a> Default: <code></code></li>
+</ul>
+<h5 id="Flowdock"><a href="#Flowdock" class="headerlink" title="Flowdock"></a><a href="https://www.flowdock.com" target="_blank" rel="noopener">Flowdock</a></h5><p>Use a <a href="https://www.flowdock.com/account/tokens" target="_blank" rel="noopener">Flow API token</a> as Target when adding a new subscription.</p>
+<ul>
+<li><code>FLOWDOCK_EXTERNAL_USERNAME</code> - The username that messages will be sent from to a flow. Default: <code>Seyren</code></li>
+<li><code>FLOWDOCK_TAGS</code> -  Special tags to add to all messages. Default: <code></code></li>
+<li><code>FLOWDOCK_EMOJIS</code> - Mapping between state and emojis unicode. Default: <code></code></li>
+</ul>
+<h5 id="HipChat"><a href="#HipChat" class="headerlink" title="HipChat"></a><a href="https://www.hipchat.com" target="_blank" rel="noopener">HipChat</a></h5><ul>
+<li><code>HIPCHAT_AUTHTOKEN</code> - The hipchat api auth token. Default: <code></code></li>
+<li><code>HIPCHAT_USERNAME</code> - The username that messages will be sent from. Default: <code>Seyren Alert</code></li>
+</ul>
+<h5 id="Hubot"><a href="#Hubot" class="headerlink" title="Hubot"></a><a href="http://hubot.github.com" target="_blank" rel="noopener">Hubot</a></h5><ul>
+<li><code>HUBOT_URL</code> - The location where Hubot is running. Default <code></code></li>
+</ul>
+<h5 id="IRCcat"><a href="#IRCcat" class="headerlink" title="IRCcat"></a><a href="https://github.com/RJ/irccat" target="_blank" rel="noopener">IRCcat</a></h5><ul>
+<li><code>IRCCAT_HOST</code> - The hostname of the server where IRCcat is running. Default: <code>localhost</code></li>
+<li><code>IRCCAT_PORT</code> - The port on which IRCcat is running. Default: <code>12345</code></li>
+</ul>
+<h5 id="PagerDuty"><a href="#PagerDuty" class="headerlink" title="PagerDuty"></a><a href="http://www.pagerduty.com" target="_blank" rel="noopener">PagerDuty</a></h5><ul>
+<li>No system properties or environment variables here, but in “Subscriptions dialog box”, set the target field with a “Service API Key”.<br>To generate a “Service API Key”, see <a href="https://support.pagerduty.com/hc/en-us/articles/202828730-Adding-Services" target="_blank" rel="noopener">PagerDuty Support: Adding Services</a>, section “Use our API directly”.</li>
+</ul>
+<h5 id="Pushover"><a href="#Pushover" class="headerlink" title="Pushover"></a><a href="https://pushover.net" target="_blank" rel="noopener">Pushover</a></h5><ul>
+<li><code>PUSHOVER_APP_API_TOKEN</code> - Your pushover App API Token</li>
+</ul>
+<h5 id="Real-time-metrics"><a href="#Real-time-metrics" class="headerlink" title="Real-time metrics"></a><a href="https://github.com/scobal/seyren/pull/142" target="_blank" rel="noopener">Real-time metrics</a></h5><ul>
+<li><code>GRAPHITE_CARBON_PICKLE_ENABLE</code> - Enable a TCP server to listen Carbon relay <a href="http://graphite.readthedocs.org/en/latest/feeding-carbon.html" target="_blank" rel="noopener">pickle protocol</a>. Default: <code>false</code></li>
+<li><code>GRAPHITE_CARBON_PICKLE_PORT</code> - The TCP server port. Default: <code>2004</code></li>
+</ul>
+<h5 id="Slack"><a href="#Slack" class="headerlink" title="Slack"></a><a href="https://www.slack.com" target="_blank" rel="noopener">Slack</a></h5><p>The target for a Slack subscription will be the channel name (including the <code>#</code>, for example <code>#channel</code>). You can optionally suffix the channel name with <code>!</code> and that will cause the alerts to include a <code>@channel</code> mention (for example <code>#channel!</code>).</p>
+<ul>
+<li><code>SLACK_TOKEN</code> - The Slack api auth token. Default: <code></code></li>
+<li><code>SLACK_USERNAME</code> - The username that messages will be sent to slack. Default: <code>Seyren</code></li>
+<li><code>SLACK_ICON_URL</code> - The user icon URL. Default: <code></code></li>
+<li><code>SLACK_EMOJIS</code> - Mapping between state and emojis unicode. Default: <code></code></li>
+</ul>
+<h5 id="SNMP"><a href="#SNMP" class="headerlink" title="SNMP"></a><a href="http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol" target="_blank" rel="noopener">SNMP</a></h5><ul>
+<li><code>SNMP_HOST</code> - The SNMP host. Default: <code>localhost</code></li>
+<li><code>SNMP_PORT</code> - The SNMP port. Default: <code>162</code></li>
+<li><code>SNMP_COMMUNITY</code> - The SNMP  community. Default: <code>public</code></li>
+<li><code>SNMP_OID</code> - The SNMP OID. Default: <code>1.3.6.1.4.1.32473.1</code></li>
+</ul>
+<h5 id="TEMPLATE"><a href="#TEMPLATE" class="headerlink" title="TEMPLATE"></a><a href="http://en.wikipedia.org/wiki/Apache_Velocity" target="_blank" rel="noopener">TEMPLATE</a></h5><ul>
+<li><code>TEMPLATE_EMAIL_FILE_PATH</code> - The path to the velocity template used when emailing an alert. Seyren will first attempt to load from the class path, but will fall back to loading from the filesystem.  Default: <code>com/seyren/core/service/notification/email-template.vm&quot;</code></li>
+<li><code>TEMPLATE_EMAIL_SUBJECT_FILE_PATH</code> - The path to the velocity template used for subject when emailing an alert. Seyren will first attempt to load from the class path, but will fall back to loading from the filesystem.  Default: <code>com/seyren/core/service/notification/email-subject-template.vm&quot;</code></li>
+</ul>
+<h5 id="Twilio"><a href="#Twilio" class="headerlink" title="Twilio"></a><a href="https://www.twilio.com/" target="_blank" rel="noopener">Twilio</a></h5><ul>
+<li><code>TWILIO_ACCOUNT_SID</code> - The Twilio Account SID. Default <code></code></li>
+<li><code>TWILIO_AUTH_TOKEN</code> - The Twilio Auth Token. Default <code></code></li>
+<li><code>TWILIO_PHONE_NUMBER</code> - The Twilio phone number to use to send SMS. Default <code></code></li>
+<li><code>TWILIO_URL</code> - The Twilio API URL. Mostly useful for testing. Default <code>https://api.twilio.com/2010-04-01/Accounts</code></li>
+</ul>
+<h5 id="Victorops"><a href="#Victorops" class="headerlink" title="Victorops"></a><a href="https://www.victorops.com/" target="_blank" rel="noopener">Victorops</a></h5><ul>
+<li><code>VICTOROPS_REST_ENDPOINT</code> - The REST Endpoint given by Victorops. See <a href="http://victorops.force.com/knowledgebase/articles/Integration/Alert-Ingestion-API-Documentation/" target="_blank" rel="noopener">REST Integration</a> Default <code></code></li>
+</ul>
+<h5 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy)"></a><a href="http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/impl/client/HttpClientBuilder.html#useSystemProperties(" target="_blank" rel="noopener">Proxy</a>)</h5><p>The Proxy settings are changed by using JAVA_OPTS. It important that you exclude your graphite server or you will proxy these requests also.</p>
+<ul>
+<li><code>JAVA_OPTS Example</code> JAVA_OPTS=”-server -Dhttps.proxyHost=<code>PROXYSERVER</code> -Dhttps.proxyPort=<code>PROXYPORT</code> -Dhttp.proxyHost=<code>PROXYSERVER</code> -Dhttp.proxyPort=<code>PROXYPORT</code> -Dhttp.nonProxyHosts=<code>GRAPHITESERVER|*YOURDOMAIN.COM|INTERNALHIPCHAT</code>“</li>
+</ul>
+<h2 id="Seyren-API"><a href="#Seyren-API" class="headerlink" title="Seyren API"></a>Seyren API</h2><p>See <a href="API.md">Seyren API</a></p>
+<h2 id="Chef"><a href="#Chef" class="headerlink" title="Chef"></a>Chef</h2><p>You can use <a href="https://github.com/obazoud/chef-seyren" target="_blank" rel="noopener">Seyren Cookbook</a> to deploy Seyren with <a href="http://www.getchef.com/" target="_blank" rel="noopener">Chef</a>.</p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>You can use the <a href="https://registry.hub.docker.com/u/usman/docker-seyren/" target="_blank" rel="noopener">Docker Seyren Image</a> to deploy a seyren instance in a <a href="https://docker.com" target="_blank" rel="noopener">docker</a> container.</p>
+<h2 id="Docker-compose"><a href="#Docker-compose" class="headerlink" title="Docker compose"></a>Docker compose</h2><p>You can use <code>docker-compose</code> to create containers and hack seyren.<br>First, you need to install <a href="https://docs.docker.com/compose/#installation-and-set-up" target="_blank" rel="noopener">Docker and Docker Compose</a>.<br>Then, you just need to start Docker Compose:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></p>
+<p>and open <a href="http://localhost:8080/seyren" target="_blank" rel="noopener">http://localhost:8080/seyren</a>.<br>Graphite is available on <a href="http://localhost:8081/" target="_blank" rel="noopener">http://localhost:8081/</a> with Basic Auth guest/guest.</p>
+<h2 id="Init-script"><a href="#Init-script" class="headerlink" title="Init script"></a>Init script</h2><p><a href="https://github.com/wingZero21/Seyren-Init" target="_blank" rel="noopener">Seyren-Init</a> is an init.d script which allows you to start the service.</p>
+<h2 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h2><p><a href="http://travis-ci.org/scobal/seyren" target="_blank" rel="noopener"><img src="https://secure.travis-ci.org/scobal/seyren.png?branch=master" alt="Build Status"></a></p>
+<p>To run the acceptance tests with Maven:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean verify</span><br></pre></td></tr></table></figure>
+<p>To run the integration tests with Maven:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean verify -Pkarma</span><br></pre></td></tr></table></figure>
+<p>To fire-up the app using Maven and wait (meaning you can run the tests separately from your IDE):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean verify -Dwait</span><br></pre></td></tr></table></figure>
+<p>You should then be able to browse to <code>http://localhost:8080/seyren</code> and have a play.</p>
+<p>To package up a new jar file without running the tests:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mvn package -DskipTests</span><br><span class="line"># Set environment variables as needed.</span><br><span class="line">java -jar seyren-web/target/seyren-web-*-war-exec.jar</span><br></pre></td></tr></table></figure>
+<p>本文参考该Github项目中的Readme:<a href="https://github.com/scobal/seyren" target="_blank" rel="noopener">https://github.com/scobal/seyren</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/Monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
+        <p><span>发布时间:</span>2016-09-16, 09:25:38</p>
+        <p><span>最后更新:</span>2018-08-28, 09:41:44</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/Monitoring/seyren.html" title="Deploy Seyren with Grafana on Ubuntu 14.04">http://1byte.pro/Monitoring/seyren.html</a>
+            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/Monitoring/seyren.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/Monitoring/collectd.html">
+                    collectd
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/Monitoring/grafana.html">
+                    Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Prerequisites-依赖软件"><span class="toc-number">1.1.</span> <span class="toc-text">Prerequisites/依赖软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-下载并运行软件包"><span class="toc-number">1.2.</span> <span class="toc-text">Run/下载并运行软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#邮件报警界面"><span class="toc-number">1.3.</span> <span class="toc-text">邮件报警界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Config"><span class="toc-number">1.4.</span> <span class="toc-text">Config</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Base"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">Base</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Graphite"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">Graphite</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Email"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">Email</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HTTP"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">HTTP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BigPanda-io"><span class="toc-number">1.4.0.5.</span> <span class="toc-text">BigPanda.io</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Flowdock"><span class="toc-number">1.4.0.6.</span> <span class="toc-text">Flowdock</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HipChat"><span class="toc-number">1.4.0.7.</span> <span class="toc-text">HipChat</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Hubot"><span class="toc-number">1.4.0.8.</span> <span class="toc-text">Hubot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#IRCcat"><span class="toc-number">1.4.0.9.</span> <span class="toc-text">IRCcat</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PagerDuty"><span class="toc-number">1.4.0.10.</span> <span class="toc-text">PagerDuty</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Pushover"><span class="toc-number">1.4.0.11.</span> <span class="toc-text">Pushover</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Real-time-metrics"><span class="toc-number">1.4.0.12.</span> <span class="toc-text">Real-time metrics</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Slack"><span class="toc-number">1.4.0.13.</span> <span class="toc-text">Slack</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SNMP"><span class="toc-number">1.4.0.14.</span> <span class="toc-text">SNMP</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TEMPLATE"><span class="toc-number">1.4.0.15.</span> <span class="toc-text">TEMPLATE</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Twilio"><span class="toc-number">1.4.0.16.</span> <span class="toc-text">Twilio</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Victorops"><span class="toc-number">1.4.0.17.</span> <span class="toc-text">Victorops</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Proxy"><span class="toc-number">1.4.0.18.</span> <span class="toc-text">Proxy)</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Seyren-API"><span class="toc-number">2.</span> <span class="toc-text">Seyren API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chef"><span class="toc-number">3.</span> <span class="toc-text">Chef</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker"><span class="toc-number">4.</span> <span class="toc-text">Docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-compose"><span class="toc-number">5.</span> <span class="toc-text">Docker compose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Init-script"><span class="toc-number">6.</span> <span class="toc-text">Init script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Development"><span class="toc-number">7.</span> <span class="toc-text">Development</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="Monitoring/seyren.html" data-title="Deploy Seyren with Grafana on Ubuntu 14.04" data-url="http://1byte.pro/Monitoring/seyren.html"></div>
+    <script>
+        var duoshuoQuery = {short_name:"54biker"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//1byte.pro/js/embed.js';
+            // s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+            // Add comment count
+            $(function(){ 
+                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=54biker&threads=Monitoring/seyren.html&callback=?";
+                $.getJSON(jsonUrl, function(result){
+                    $.each(result.response, function(i, field){
+                        var value = field.comments;
+                        if (value > 0) {
+                            $(".count-comment").text(value);
+                            return;
+                        }
+                    })
+                })
+            })
+        
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/Monitoring/collectd.html" title="上一篇: collectd">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/Monitoring/grafana.html" title="下一篇: Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/Devops/kafka-flume.html">Kafka与Flume区别</a></li><li class="post-list-item"><a class="post-list-link" href="/Coding/scala-exception-handler.html">Scala异常获取一例</a></li><li class="post-list-item"><a class="post-list-link" href="/Opinions/fake-chrome.html">红芯浏览器下载</a></li><li class="post-list-item"><a class="post-list-link" href="/Issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/Voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/Issues/jira-over-https.html">Nginx开启HTTPS反向代理访问Jira失败</a></li><li class="post-list-item"><a class="post-list-link" href="/Devops/install-freeipa-client.html">FreeIPA Client 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/Devops/install-freeipa-server-on-centos.html">FreeIPA Server 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/Python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/Jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 Gavin Wei
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-123125086-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
