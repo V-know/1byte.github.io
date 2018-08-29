@@ -398,34 +398,20 @@
 
 
     
-      <div class="duoshuo" id="comments">
-    <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="Devops/kafka-flume.html" data-title="Kafka与Flume区别" data-url="http://1byte.pro/Devops/kafka-flume.html"></div>
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
     <script>
-        var duoshuoQuery = {short_name:"54biker"};
+        var disqus_config = function(){
+            this.page.url = 'http://1byte.pro/Devops/kafka-flume.html';
+            this.page.identifier = 'Devops/kafka-flume.html';
+        };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
-            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//1byte.pro/js/embed.js';
-            // s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-            s.async = true; s.charset = 'UTF-8';
+            s.src = '//cancellara.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         }
-
-        
-            // Add comment count
-            $(function(){ 
-                var jsonUrl = "http://api.duoshuo.com/threads/counts.jsonp?short_name=54biker&threads=Devops/kafka-flume.html&callback=?";
-                $.getJSON(jsonUrl, function(result){
-                    $.each(result.response, function(i, field){
-                        var value = field.comments;
-                        if (value > 0) {
-                            $(".count-comment").text(value);
-                            return;
-                        }
-                    })
-                })
-            })
-        
     </script>
     
     <aside class="comment-bar">
@@ -453,7 +439,23 @@
         }
     </script>
 
-</div>
+</section>
+
+
+    <script id="dsq-count-scr" src="//cancellara.disqus.com/count.js" async></script>
+    <span class="disqus-comment-count" data-disqus-identifier="Devops/kafka-flume.html"></span>
+    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/Devops/kafka-flume.html"></span>
+    <script>
+        $(".disqus-comment-count").hide();
+        var $disqusCount = $(".disqus-comment-count");
+        $disqusCount.bind("DOMNodeInserted", function(e) {
+            $(".count-comment").text(
+                $(this).text().replace(/[^0-9]/ig,"")
+            )
+            DISQUSWIDGETS.getCount({reset: true});
+        })
+    </script>
+
 
     
 
@@ -482,6 +484,7 @@
     <script>
         
     </script>
+
 </div>
       <footer id="footer">
     <div class="outer">
@@ -497,7 +500,19 @@
         
             <div class="visit">
                 
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
                 
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
                 
             </div>
         
