@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="Just 1 Byte">
 <meta property="og:description" content="首先，我们对比一下foreachPartition和foreach两个方法的实现，有什么不同的地方：123456789def foreach(f: T =&amp;gt; Unit): Unit = withScope &amp;#123;  val cleanF = sc.clean(f)  sc.runJob(this, (iter: Iterator[T]) =&amp;gt; iter.foreach(clean">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-02T10:57:39.756Z">
+<meta property="og:updated_time" content="2018-09-02T11:00:06.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark性能优化之foreach与foreachPartition">
 <meta name="twitter:description" content="首先，我们对比一下foreachPartition和foreach两个方法的实现，有什么不同的地方：123456789def foreach(f: T =&amp;gt; Unit): Unit = withScope &amp;#123;  val cleanF = sc.clean(f)  sc.runJob(this, (iter: Iterator[T]) =&amp;gt; iter.foreach(clean">
@@ -309,6 +309,7 @@
       
           
         <p>首先，我们对比一下<code>foreachPartition</code>和<code>foreach</code>两个方法的实现，有什么不同的地方：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foreach</span></span>(f: <span class="type">T</span> =&gt; <span class="type">Unit</span>): <span class="type">Unit</span> = withScope &#123;</span><br><span class="line">  <span class="keyword">val</span> cleanF = sc.clean(f)</span><br><span class="line">  sc.runJob(<span class="keyword">this</span>, (iter: <span class="type">Iterator</span>[<span class="type">T</span>]) =&gt; iter.foreach(cleanF))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foreachPartition</span></span>(f: <span class="type">Iterator</span>[<span class="type">T</span>] =&gt; <span class="type">Unit</span>): <span class="type">Unit</span> = withScope &#123;</span><br><span class="line">  <span class="keyword">val</span> cleanF = sc.clean(f)</span><br><span class="line">  sc.runJob(<span class="keyword">this</span>, (iter: <span class="type">Iterator</span>[<span class="type">T</span>]) =&gt; cleanF(iter))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>2个方法，参数都是一个函数文本，不同的是foreach当中，函数文本希望的参数是T，也就是RDD当中的元素类型；foreachPartition当中，函数文本希望的参数是<code>Iterator[T]</code>，也就是一个partition。</p>
 <p>而在内部实现上，其实是大同小异的。对于foreachPartition而言，直接在各个partition上运行传入的函数文本；而对于foreach而言，是把传入的函数文本，交给各个partition的foreach去执行。<br>我们查看一些spark性能优化指南，会提到<code>用foreachPartition替代foreach，有助于性能的提高</code>。那么我们要怎样来理解这句话呢？看看下面这段代码：</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rdd.foreach &#123; x =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> dbClient = <span class="keyword">new</span> <span class="type">DBClient</span></span><br><span class="line"></span><br><span class="line">    dbClient.ins(x)</span><br><span class="line"></span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
@@ -357,7 +358,7 @@
         <p><span>本文标题:</span><a href="/BigData/foreach-forearchpartition.html">Spark性能优化之foreach与foreachPartition</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
         <p><span>发布时间:</span>2018-09-02, 10:46:59</p>
-        <p><span>最后更新:</span>2018-09-02, 10:57:39</p>
+        <p><span>最后更新:</span>2018-09-02, 11:00:06</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/BigData/foreach-forearchpartition.html" title="Spark性能优化之foreach与foreachPartition">http://1byte.pro/BigData/foreach-forearchpartition.html</a>
             <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/BigData/foreach-forearchpartition.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
