@@ -15,13 +15,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Just 1 Byte">
-<meta property="og:url" content="http://1byte.pro/tags/Spark/index.html">
+<meta name="description" content="随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。 均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低">
+<meta name="keywords" content="Hadoop,BigData">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop集群中banlancer用法简介">
+<meta property="og:url" content="http://1byte.pro/BigData/hadoop-banlancer.html">
 <meta property="og:site_name" content="Just 1 Byte">
+<meta property="og:description" content="随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。 均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-03T04:03:53.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Just 1 Byte">
+<meta name="twitter:title" content="Hadoop集群中banlancer用法简介">
+<meta name="twitter:description" content="随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。 均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -51,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Tag: Spark | Just 1 Byte</title>
+<title>Hadoop集群中banlancer用法简介 | Just 1 Byte</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -61,9 +66,9 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
-        isTag: true,
+        isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
@@ -259,59 +264,230 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-hadoop-banlancer" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/BigData/foreach-forearchpartition.html" class="archive-article-date">
-      <time datetime="2018-09-02T10:46:59.000Z" itemprop="datePublished">09-02</time>
+    <div class="article-meta">
+      <a href="/BigData/hadoop-banlancer.html" class="article-date">
+      <time datetime="2018-05-03T04:00:39.000Z" itemprop="datePublished">2018-05-03</time>
 </a>
 
 
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/BigData/foreach-forearchpartition.html">Spark性能优化之foreach与foreachPartition</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hadoop集群中banlancer用法简介
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
     <div class="article-category tagcloud">
     <a class="article-category-link" href="/categories/BigData/">BigData</a>
     </div>
 
 
-          
+        
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BigData/">BigData</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。</p>
+<p>均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低数据损失概率。它不断移动块，直到集群达到均衡，即每个 datanode 的使用率（该节点上已使用的空间与空间容量之间的比率）和集群的使用率（集群中已使用的空间与集群的空间容量之间的比率）非常接近，差距不超过给定的阀值（默认为10%）。可调用下面指令启动均衡器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$path_to_hadoop/bin/start-balancer.sh -t 10%</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>-t 选项指定阈值，以判定集群是否均衡。这个标记是可选的；若不使用，默认阈值是10%。在任何时刻，集群中都只运行一个均衡器。</li>
+</ul>
+<p>均衡器会一直运行，直到集群变均衡；之后，集群无法移动任何块，或与 namenode 失去联系。均衡器在标准日志目录中创建一个日志文件 ，记录每次重新分配过程（第次运行记录一行）。</p>
+<p>为了降低集群负何、避免干扰其它用户，均衡器被设计为在后台运行。在不同节点之间复制数据的带宽也是受限的。默认值是很小的 1MB/s，可以通过 hdfs-site.xml 文件中 df.balance.bandwidthPerSec 属性指定（单位是字节）。</p>
+
+      
+    </div>
+    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/BigData/hadoop-banlancer.html">Hadoop集群中banlancer用法简介</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
+        <p><span>发布时间:</span>2018-05-03, 04:00:39</p>
+        <p><span>最后更新:</span>2018-09-03, 04:03:53</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/BigData/hadoop-banlancer.html" title="Hadoop集群中banlancer用法简介">http://1byte.pro/BigData/hadoop-banlancer.html</a>
+            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/BigData/hadoop-banlancer.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/Voice/v.html">
+                    V
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/Issues/jira-over-https.html">
+                    Nginx开启HTTPS反向代理访问Jira失败
+                </a>
+            </div>
+        
+    </nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
 
     
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://1byte.pro/BigData/hadoop-banlancer.html';
+            this.page.identifier = 'BigData/hadoop-banlancer.html';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//cancellara.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+</section>
+
+
+    <script id="dsq-count-scr" src="//cancellara.disqus.com/count.js" async></script>
+    <span class="disqus-comment-count" data-disqus-identifier="BigData/hadoop-banlancer.html"></span>
+    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/BigData/hadoop-banlancer.html"></span>
+    <script>
+        $(".disqus-comment-count").hide();
+        var $disqusCount = $(".disqus-comment-count");
+        $disqusCount.bind("DOMNodeInserted", function(e) {
+            $(".count-comment").text(
+                $(this).text().replace(/[^0-9]/ig,"")
+            )
+            DISQUSWIDGETS.getCount({reset: true});
+        })
+    </script>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/Voice/v.html" title="上一篇: V">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/Issues/jira-over-https.html" title="下一篇: Nginx开启HTTPS反向代理访问Jira失败">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/BigData/foreach-forearchpartition.html">Spark性能优化之foreach与foreachPartition</a></li><li class="post-list-item"><a class="post-list-link" href="/Devops/kafka-flume.html">Kafka与Flume区别</a></li><li class="post-list-item"><a class="post-list-link" href="/Coding/scala-exception-handler.html">Scala异常获取一例</a></li><li class="post-list-item"><a class="post-list-link" href="/Opinions/fake-chrome.html">红芯浏览器下载</a></li><li class="post-list-item"><a class="post-list-link" href="/Issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/Python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/Voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/BigData/hadoop-banlancer.html">Hadoop集群中banlancer用法简介</a></li><li class="post-list-item"><a class="post-list-link" href="/Issues/jira-over-https.html">Nginx开启HTTPS反向代理访问Jira失败</a></li><li class="post-list-item"><a class="post-list-link" href="/Devops/install-freeipa-client.html">FreeIPA Client 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/Devops/install-freeipa-server-on-centos.html">FreeIPA Server 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/Monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/Python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/Jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/Docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 
 </div>
       <footer id="footer">

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/BigData/hadoop-banlancer.html</loc>
+    
+    <lastmod>2018-09-03T04:03:53.418Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/BigData/foreach-forearchpartition.html</loc>
     
     <lastmod>2018-09-02T11:00:06.797Z</lastmod>
@@ -23,7 +30,7 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/Devops/install-freeipa-server-on-centos.html</loc>
+    <loc>http://1byte.pro/Docker/install-jira-manully.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -37,14 +44,14 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/Issues/jira-over-https.html</loc>
+    <loc>http://1byte.pro/Devops/install-freeipa-server-on-centos.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/install-jira-manully.html</loc>
+    <loc>http://1byte.pro/Devops/kafka-flume.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -79,16 +86,9 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/Devops/kafka-flume.html</loc>
+    <loc>http://1byte.pro/Issues/jira-over-https.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/Python/chromium-on-centos-for-selenium.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
@@ -135,6 +135,13 @@
   </url>
   
   <url>
+    <loc>http://1byte.pro/Docker/compile-image.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/Monitoring/collectd.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
@@ -149,14 +156,14 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/compile-image.html</loc>
+    <loc>http://1byte.pro/Python/date-of-python.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Python/date-of-python.html</loc>
+    <loc>http://1byte.pro/Python/chromium-on-centos-for-selenium.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
