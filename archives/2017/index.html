@@ -14,15 +14,10 @@
 <meta name="author" content="Gavin Wei" />
 
 
-    
-     
-        <meta name="google-site-verification" content="cthMnz-WzB_auyScm9HT7JKyxkjEd7NhTGMBIhStcaM" />
-    
-
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Just 1 Byte">
-<meta property="og:url" content="http://1byte.pro/page/3/index.html">
+<meta property="og:url" content="http://1byte.pro/archives/2017/index.html">
 <meta property="og:site_name" content="Just 1 Byte">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -52,13 +47,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <style> .article { opacity: 0;} </style>
-
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Just 1 Byte</title>
+<title>Archives: 2017 | Just 1 Byte</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -67,9 +60,9 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
+        isHome: false,
         isPost: false,
-        isArchive: false,
+        isArchive: true,
         isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -268,297 +261,58 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-compile-image" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/Docker/compile-image.html" class="article-date">
-      <time datetime="2016-09-07T09:46:14.000Z" itemprop="datePublished">2016-09-07</time>
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+          <div class="article-meta">
+              <a href="/Devops/RobustnessOfShellScript.html" class="archive-article-date">
+      <time datetime="2017-09-03T04:16:18.000Z" itemprop="datePublished">09-03</time>
 </a>
 
 
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+        </div>
+         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/Docker/compile-image.html">Percona容器部署</a>
+      <a class="archive-article-title" href="/Devops/RobustnessOfShellScript.html">如何写出健壮的 Bash 脚本</a>
     </h1>
   
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+        <div class="article-info info-on-archive">
           
-              <h2 id="镜像编译"><a href="#镜像编译" class="headerlink" title="镜像编译"></a>镜像编译</h2><p>以镜像percona为例，假如我们应用场景如下：<br>现在需要向pernoa镜像中添加数据库自动备份功能</p>
-<h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">git <span class="built_in">clone</span> ssh://gavinwei@git.example.com:29418/docker/bd/percona</span><br></pre></td></tr></table></figure>
-<h3 id="操作percona代码"><a href="#操作percona代码" class="headerlink" title="操作percona代码"></a>操作percona代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd ~/percona</span></span><br><span class="line"><span class="comment"># ls </span></span><br><span class="line">pom.xml  proguard.conf  src</span><br></pre></td></tr></table></figure>
-<p>我们所需要操作都在src目录的最底层：<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+    <a class="article-category-link" href="/categories/Devops/">Devops</a>
     </div>
 
 
-      
+          
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/container/">container</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image/">image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/percona/">percona</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Robustness/">Robustness</a></li></ul>
     </div>
 
-      
-        <p class="article-more-link">
-          <a href="/Docker/compile-image.html#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
-  
 </article>
-
-
-
-
-
-
-
-
-
-
   
-    <article id="post-ss5" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/Docker/ss5.html" class="article-date">
-      <time datetime="2016-09-07T07:41:11.000Z" itemprop="datePublished">2016-09-07</time>
-</a>
-
-
-    </div>
+    </div></section>
   
-  <div class="article-inner">
+
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Docker/ss5.html">SS5 Installation</a>
-    </h1>
-  
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="安装ss5"><a href="#安装ss5" class="headerlink" title="安装ss5"></a>安装ss5</h3><p><code>apt-get install gcc make</code></p>
-<h4 id="下载源码包"><a href="#下载源码包" class="headerlink" title="下载源码包"></a>下载源码包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://120.52.73.44/jaist.dl.sourceforge.net/project/ss5/ss5/3.8.9-8/ss5-3.8.9-8.tar.gz</span><br><span class="line">cd ./ss5-3.8.9-8</span><br><span class="line">./configure</span><br></pre></td></tr></table></figure>
-<p>报错：<br><code>configure: error: *** Some of the headers weren&#39;t found ***</code><br>安装libpam0g-dev解决：<br><code>apt-get install libpam0g-dev</code></p>
-<p>make报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SS5OpenLdap.c:29:18: fatal error: ldap.h: No such file or directory</span><br><span class="line"> #include &lt;ldap.h&gt;</span><br><span class="line">                  ^</span><br><span class="line">compilation terminated.</span><br><span class="line">make[1]: *** [SS5OpenLdap.o] Error 1</span><br></pre></td></tr></table></figure></p>
-<p>解决：<br><code>apt-get install libcurl4-openssl-dev</code></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Docker/">Docker</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ss5/">ss5</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/Docker/ss5.html#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-docker-deployment" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/Docker/docker-deployment.html" class="article-date">
-      <time datetime="2016-09-07T07:35:57.000Z" itemprop="datePublished">2016-09-07</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Docker/docker-deployment.html">Docker deployment</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>Docker容器部署的大致步骤如下：</p>
-<h2 id="一、在VM层的操作"><a href="#一、在VM层的操作" class="headerlink" title="一、在VM层的操作"></a>一、在VM层的操作</h2><h4 id="镜像编译工作"><a href="#镜像编译工作" class="headerlink" title="镜像编译工作"></a>镜像编译工作</h4><p>在镜像项目的顶层目录下运行：<br><code>mvn versions:resolve-ranges</code><br>这一步用于获取base镜像的版本号<br>下一步进行镜像的编译：<br><code>mvn clean install</code></p>
-<p>编译完成后，可使用<code>docker images</code>命令来查看所编译镜像是否存在</p>
-<h4 id="传输镜像"><a href="#传输镜像" class="headerlink" title="传输镜像"></a>传输镜像</h4><p>通过下面命令将编译好的镜像传输至DIND：<br><code>docker save docker.example.com/jira:0.0.1-SNAPSHOT | ssh -C root@dind1.docker.example.com &quot;docker load&quot;</code><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Docker/">Docker</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DIND/">DIND</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/Docker/docker-deployment.html#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-fabfile" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/Docker/fabfile.html" class="article-date">
-      <time datetime="2016-09-07T07:24:33.000Z" itemprop="datePublished">2016-09-07</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Docker/fabfile.html">vpnporxy 部署纪要</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="解决fabfile中hosts变量的获取问题"><a href="#解决fabfile中hosts变量的获取问题" class="headerlink" title="解决fabfile中hosts变量的获取问题"></a>解决fabfile中hosts变量的获取问题</h3><p>test_depoly中使用_find_hosts_by_cluster_and_container（cluster,container）来获取hosts，但是传进来的这两个变量都有可能是列表，所以要解决列表问题，最后还要解决hosts列表中的元素为列表的情况<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> type(containers) == str:</span><br><span class="line">   hosts = map(<span class="keyword">lambda</span> cluster: _find_hosts_by_cluster_and_container(cluster, containers), clusters)</span><br><span class="line"><span class="keyword">if</span> type(containers) == list:</span><br><span class="line">   hosts = []</span><br><span class="line">   <span class="keyword">for</span> containers <span class="keyword">in</span> containerss:</span><br><span class="line">       host = map(<span class="keyword">lambda</span> cluster: _find_hosts_by_cluster_and_container(cluster, container), clusters)</span><br><span class="line">       hosts.extend(host)</span><br><span class="line">lst = []</span><br><span class="line"><span class="keyword">for</span> host <span class="keyword">in</span> hosts:</span><br><span class="line">   <span class="keyword">if</span> type(host) == list:</span><br><span class="line">      lst.extend(host)</span><br><span class="line">   <span class="keyword">else</span>:</span><br><span class="line">      lst.append(host)</span><br><span class="line">hosts = lst</span><br><span class="line"><span class="keyword">print</span> hosts</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(hosts) == <span class="number">0</span>:</span><br><span class="line">    env.hosts = <span class="keyword">None</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    env.hosts = hosts</span><br></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Docker/">Docker</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabfile/">fabfile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/Docker/fabfile.html#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
-  
 </div>
       <footer id="footer">
     <div class="outer">
