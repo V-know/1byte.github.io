@@ -2,21 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://1byte.pro/Devops/RobustnessOfShellScript.html</loc>
+    <loc>http://1byte.pro/devops/RobustnessOfShellScript.html</loc>
     
     <lastmod>2018-09-03T04:37:42.769Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/BigData/hadoop-banlancer.html</loc>
+    <loc>http://1byte.pro/bigdata/hadoop-banlancer.html</loc>
     
     <lastmod>2018-09-03T04:06:12.855Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/BigData/foreach-forearchpartition.html</loc>
+    <loc>http://1byte.pro/bigdata/foreach-forearchpartition.html</loc>
     
     <lastmod>2018-09-02T11:00:06.797Z</lastmod>
     
@@ -30,147 +30,147 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/Devops/install-freeipa-server-on-centos.html</loc>
+    <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Jenkins/jenkins.html</loc>
+    <loc>http://1byte.pro/jenkins/jenkins.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Issues/jira-over-https.html</loc>
+    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/install-jira-manully.html</loc>
+    <loc>http://1byte.pro/docker/install-jira-manully.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Coding/scala-exception-handler.html</loc>
+    <loc>http://1byte.pro/coding/scala-exception-handler.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/ss5.html</loc>
+    <loc>http://1byte.pro/docker/ss5.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Voice/v.html</loc>
+    <loc>http://1byte.pro/voice/v.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Devops/install-freeipa-client.html</loc>
+    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Monitoring/seyren.html</loc>
+    <loc>http://1byte.pro/monitoring/seyren.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Devops/kafka-flume.html</loc>
+    <loc>http://1byte.pro/devops/kafka-flume.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/fabfile.html</loc>
+    <loc>http://1byte.pro/docker/fabfile.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Opinions/fake-chrome.html</loc>
+    <loc>http://1byte.pro/opinions/fake-chrome.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/add-logrotate-to-percona-container.html</loc>
+    <loc>http://1byte.pro/docker/add-logrotate-to-percona-container.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Issues/gitlab-trouble-shooting.html</loc>
+    <loc>http://1byte.pro/issues/gitlab-trouble-shooting.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Monitoring/grafana.html</loc>
+    <loc>http://1byte.pro/monitoring/grafana.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/compile-image.html</loc>
+    <loc>http://1byte.pro/docker/compile-image.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Python/date-of-python.html</loc>
+    <loc>http://1byte.pro/python/date-of-python.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Monitoring/collectd.html</loc>
+    <loc>http://1byte.pro/monitoring/collectd.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Monitoring/graphite.html</loc>
+    <loc>http://1byte.pro/monitoring/graphite.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Docker/docker-deployment.html</loc>
+    <loc>http://1byte.pro/docker/docker-deployment.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/Python/chromium-on-centos-for-selenium.html</loc>
+    <loc>http://1byte.pro/python/chromium-on-centos-for-selenium.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
