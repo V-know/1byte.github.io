@@ -172,15 +172,9 @@
                     <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Coding" href="https://github.com/v-know" title="Coding"></a>
-                            
-                                <a class="fa 知乎" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
-                            
-                                <a class="fa 新浪微博" href="http://weibo.com/178go" title="新浪微博"></a>
+                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Twitter" href="http://twitter.com/mrunamed" title="Twitter"></a>
-                            
-                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Quora" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
                             
@@ -244,15 +238,9 @@
             <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Coding" target="_blank" href="https://github.com/v-know" title="Coding"></a>
-                            
-                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/178go" title="新浪微博"></a>
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Twitter" target="_blank" href="http://twitter.com/mrunamed" title="Twitter"></a>
-                            
-                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
                             
@@ -309,16 +297,16 @@
       
           
         <h3 id="新增IPA客户端主机"><a href="#新增IPA客户端主机" class="headerlink" title="新增IPA客户端主机"></a>新增IPA客户端主机</h3><h4 id="修改DNS服务器"><a href="#修改DNS服务器" class="headerlink" title="修改DNS服务器"></a>修改DNS服务器</h4><p>vim /etc/resolv.conf<br>把下面两行放最上面</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">search</span> <span class="selector-tag">bd</span><span class="selector-class">.example</span><span class="selector-class">.com</span><span class="selector-class">.cn</span></span><br><span class="line"><span class="selector-tag">nameserver</span> 192<span class="selector-class">.168</span><span class="selector-class">.2</span><span class="selector-class">.150</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">search bd.example.com.cn</span><br><span class="line">nameserver 192.168.2.150</span><br></pre></td></tr></table></figure>
 <h4 id="修改hosts文件中第二行旧的主机名（很重要）"><a href="#修改hosts文件中第二行旧的主机名（很重要）" class="headerlink" title="修改hosts文件中第二行旧的主机名（很重要）"></a>修改hosts文件中第二行旧的主机名（很重要）</h4><a id="more"></a>
-<p>修改为：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192<span class="selector-class">.168</span><span class="selector-class">.0</span><span class="selector-class">.8</span> <span class="selector-tag">tracking8</span><span class="selector-class">.bd</span><span class="selector-class">.example</span><span class="selector-class">.com</span><span class="selector-class">.cn</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hostnamectl </span><span class="built_in">set-hostname</span> <span class="string">xxx.</span><span class="string">bd.</span><span class="string">example.</span><span class="string">com.</span><span class="string">cn</span></span><br></pre></td></tr></table></figure>
-<h4 id="修改PS1变量"><a href="#修改PS1变量" class="headerlink" title="修改PS1变量"></a>修改PS1变量</h4><p>vim /etc/profile<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">PS1</span>=<span class="string">"[\u@\h \W]\\$ "</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="安装ipa-client"><a href="#安装ipa-client" class="headerlink" title="安装ipa client"></a>安装ipa client</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ipa-client</span><br><span class="line"></span><br><span class="line">ipa-client-install --mkhomedir</span><br><span class="line"></span><br><span class="line">Realm: FUGETECH.COM.CN</span><br><span class="line">DNS Domain: example.com.cn</span><br><span class="line">IPA Server: ipa.example.com.cn</span><br><span class="line">BaseDN: <span class="attribute">dc</span>=example,dc=com,dc=cn</span><br></pre></td></tr></table></figure>
+<p>修改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.0.8 tracking8.bd.example.com.cn</span><br></pre></td></tr></table></figure></p>
+<h4 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname xxx.bd.example.com.cn</span><br></pre></td></tr></table></figure>
+<h4 id="修改PS1变量"><a href="#修改PS1变量" class="headerlink" title="修改PS1变量"></a>修改PS1变量</h4><p>vim /etc/profile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PS1=&quot;[\u@\h \W]\\$ &quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装ipa-client"><a href="#安装ipa-client" class="headerlink" title="安装ipa client"></a>安装ipa client</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ipa-client</span><br><span class="line"></span><br><span class="line">ipa-client-install --mkhomedir</span><br><span class="line"></span><br><span class="line">Realm: FUGETECH.COM.CN</span><br><span class="line">DNS Domain: example.com.cn</span><br><span class="line">IPA Server: ipa.example.com.cn</span><br><span class="line">BaseDN: dc=example,dc=com,dc=cn</span><br></pre></td></tr></table></figure>
 <h4 id="开放系统limit值"><a href="#开放系统limit值" class="headerlink" title="开放系统limit值"></a>开放系统limit值</h4><p>在文件<code>/etc/security/limits.conf</code>末尾追加：</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>soft nofile 65535</span><br><span class="line"><span class="bullet">* </span>hard nofile 65535</span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>soft    nproc   65535</span><br><span class="line"><span class="bullet">* </span>hard    nproc   65535</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br><span class="line"></span><br><span class="line">* soft    nproc   65535</span><br><span class="line">* hard    nproc   65535</span><br></pre></td></tr></table></figure>
 <h4 id="允许自动创建家目录-前面install时已创建，此处忽略"><a href="#允许自动创建家目录-前面install时已创建，此处忽略" class="headerlink" title="允许自动创建家目录(前面install时已创建，此处忽略)"></a>允许自动创建家目录(前面install时已创建，此处忽略)</h4><p>(如果安装时使用–mkhomedir选项，这一步可忽略)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authconfig --enablemkhomedir --update</span><br></pre></td></tr></table></figure></p>
-<h4 id="admin被锁处理"><a href="#admin被锁处理" class="headerlink" title="admin被锁处理"></a>admin被锁处理</h4><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapmodify  -h localhost -D <span class="string">"uid=admin,cn=users,cn=accounts"</span> -ZZ -<span class="keyword">x</span> -W</span><br></pre></td></tr></table></figure>
+<h4 id="admin被锁处理"><a href="#admin被锁处理" class="headerlink" title="admin被锁处理"></a>admin被锁处理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapmodify  -h localhost -D &quot;uid=admin,cn=users,cn=accounts&quot; -ZZ -x -W</span><br></pre></td></tr></table></figure>
 
       
     </div>

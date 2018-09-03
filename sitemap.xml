@@ -79,14 +79,14 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
+    <loc>http://1byte.pro/monitoring/seyren.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/monitoring/seyren.html</loc>
+    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -142,13 +142,6 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/python/date-of-python.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://1byte.pro/monitoring/collectd.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
@@ -157,6 +150,13 @@
   
   <url>
     <loc>http://1byte.pro/monitoring/graphite.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/python/date-of-python.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     

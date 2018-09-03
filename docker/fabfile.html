@@ -174,15 +174,9 @@
                     <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Coding" href="https://github.com/v-know" title="Coding"></a>
-                            
-                                <a class="fa 知乎" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
-                            
-                                <a class="fa 新浪微博" href="http://weibo.com/178go" title="新浪微博"></a>
+                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Twitter" href="http://twitter.com/mrunamed" title="Twitter"></a>
-                            
-                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Quora" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
                             
@@ -246,15 +240,9 @@
             <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Coding" target="_blank" href="https://github.com/v-know" title="Coding"></a>
-                            
-                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/178go" title="新浪微博"></a>
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Twitter" target="_blank" href="http://twitter.com/mrunamed" title="Twitter"></a>
-                            
-                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
                             
@@ -314,7 +302,7 @@
 <a id="more"></a>
 <h3 id="容器域名的添加"><a href="#容器域名的添加" class="headerlink" title="容器域名的添加"></a>容器域名的添加</h3><p>一开始没有搞清楚服务域名和部署主机域名，浪费了点时间来处理这个问题，新添加的域名生效也很慢。</p>
 <h3 id="version-No-的获取问题"><a href="#version-No-的获取问题" class="headerlink" title="version No. 的获取问题"></a>version No. 的获取问题</h3><p>上面所有总是解决后，遇到的最后一个报错：<br><img src="/images/fabfile/vpnproxy-error.png" alt="Alt text"></p>
-<p>版本号问题，Nia分辨出是docker.pp没有获取正确的version number，最后找到是主机46没有建立tag file，初建后，运行成功。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">my</span>::<span class="attribute">config</span>::<span class="attribute">tags</span>::<span class="attribute">vpnproxy</span>:</span><br><span class="line">    <span class="attribute">tag</span>: <span class="number">87</span>aded288d1dbc874289852bc652db5e334a4959-SNAPSHOT</span><br></pre></td></tr></table></figure></p>
+<p>版本号问题，Nia分辨出是docker.pp没有获取正确的version number，最后找到是主机46没有建立tag file，初建后，运行成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my::config::tags::vpnproxy:</span><br><span class="line">    tag: 87aded288d1dbc874289852bc652db5e334a4959-SNAPSHOT</span><br></pre></td></tr></table></figure></p>
 
       
     </div>

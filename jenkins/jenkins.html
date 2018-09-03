@@ -179,15 +179,9 @@
                     <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Coding" href="https://github.com/v-know" title="Coding"></a>
-                            
-                                <a class="fa 知乎" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
-                            
-                                <a class="fa 新浪微博" href="http://weibo.com/178go" title="新浪微博"></a>
+                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Twitter" href="http://twitter.com/mrunamed" title="Twitter"></a>
-                            
-                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Quora" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
                             
@@ -251,15 +245,9 @@
             <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Coding" target="_blank" href="https://github.com/v-know" title="Coding"></a>
-                            
-                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/unamed-mr" title="知乎"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/178go" title="新浪微博"></a>
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Twitter" target="_blank" href="http://twitter.com/mrunamed" title="Twitter"></a>
-                            
-                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
                             
                                 <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
                             
@@ -321,7 +309,7 @@
 <a id="more"></a>
 <hr>
 <h2 id="Configure-in-devop-deploy"><a href="#Configure-in-devop-deploy" class="headerlink" title="Configure in devop/deploy"></a>Configure in devop/deploy</h2><p>We are going to deploy the container on host 10.129.0.29, so we need to modify the file ip-10-129-0-29.shadc.example.com.yaml, this yaml file includes all the containers on 10.129.0.29:</p>
-<p>This file is located in <code>~/devops/deploy/puppet/hieradata/node/shadc/</code><br>Add these lines to it:<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vpnproxy.<span class="number">1</span>:</span><br><span class="line">    <span class="keyword">ensure</span>:             <span class="string">'present'</span></span><br></pre></td></tr></table></figure></p>
+<p>This file is located in <code>~/devops/deploy/puppet/hieradata/node/shadc/</code><br>Add these lines to it:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vpnproxy.1:</span><br><span class="line">    ensure:             &apos;present&apos;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>In this case, we only need “”ensure” option here.</p>
 </blockquote>
@@ -329,7 +317,7 @@
 <hr>
 <h1 id="Jenkins-Operation"><a href="#Jenkins-Operation" class="headerlink" title="Jenkins Operation"></a>Jenkins Operation</h1><h4 id="clone-Jinkins-cfg-codes"><a href="#clone-Jinkins-cfg-codes" class="headerlink" title="clone Jinkins cfg codes"></a>clone Jinkins cfg codes</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">git <span class="built_in">clone</span> ssh://gavinwei@git.example.com:29418/devops/jenkinscfg</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/jenkinscfg/cfg/docker/sys</span><br><span class="line">vim docker.yaml</span><br></pre></td></tr></table></figure>
-<h4 id="Add-these-lines-to-the-end-they-are-used-by-Jenkins"><a href="#Add-these-lines-to-the-end-they-are-used-by-Jenkins" class="headerlink" title="Add these lines to the end, they are used by Jenkins:"></a>Add these lines to the end, they are used by Jenkins:</h4><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vpnproxy</span>:</span><br><span class="line">    <span class="attribute">GIT_REPOSITORY</span>:     <span class="string">'docker/sys/vpnproxy'</span></span><br><span class="line">    <span class="attribute">GENERATOR_PREFIX</span>:   <span class="string">'docker_sys_vpnproxy'</span></span><br><span class="line">    <span class="attribute">DEPLOY_IMAGES</span>:      <span class="string">'vpnproxy'</span></span><br></pre></td></tr></table></figure>
+<h4 id="Add-these-lines-to-the-end-they-are-used-by-Jenkins"><a href="#Add-these-lines-to-the-end-they-are-used-by-Jenkins" class="headerlink" title="Add these lines to the end, they are used by Jenkins:"></a>Add these lines to the end, they are used by Jenkins:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vpnproxy:</span><br><span class="line">    GIT_REPOSITORY:     &apos;docker/sys/vpnproxy&apos;</span><br><span class="line">    GENERATOR_PREFIX:   &apos;docker_sys_vpnproxy&apos;</span><br><span class="line">    DEPLOY_IMAGES:      &apos;vpnproxy&apos;</span><br></pre></td></tr></table></figure>
 <p>Get the commander jenkins-generate.py:<br><code>cat ~/jenkinscfg/README.md</code><br><code>./jenkins-generate.py --user USER --cfgfile cfg/common/common.yaml --host https://jenkins.example.com/</code></p>
 <h4 id="Change-the-‘USER’-and-path-of-yaml"><a href="#Change-the-‘USER’-and-path-of-yaml" class="headerlink" title="Change the ‘USER’ and path of yaml:"></a>Change the ‘USER’ and path of yaml:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/jenkinscfg</span><br><span class="line">./jenkins-generate.py --user gavinwe --cfgfile cfg/docker/sys/docker.yaml --host https://jenkins.ja.example.com/ --<span class="built_in">jobs</span> vpnproxy</span><br></pre></td></tr></table></figure>
 <p>Login Jenkins web UI: <a href="https://jenkins.ja.example.cn" target="_blank" rel="noopener">https://jenkins.ja.example.cn</a></p>
