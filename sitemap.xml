@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/devops/install-node-exporter-by-ansible.html</loc>
+    
+    <lastmod>2018-09-06T10:59:23.889Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/devops/RobustnessOfShellScript.html</loc>
     
     <lastmod>2018-09-03T04:37:42.769Z</lastmod>
@@ -30,7 +37,7 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
+    <loc>http://1byte.pro/docker/install-jira-manully.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -44,14 +51,14 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
+    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/docker/install-jira-manully.html</loc>
+    <loc>http://1byte.pro/devops/kafka-flume.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -79,6 +86,13 @@
   </url>
   
   <url>
+    <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/monitoring/seyren.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
@@ -86,23 +100,9 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
+    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/devops/kafka-flume.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/docker/fabfile.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
@@ -142,20 +142,6 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/monitoring/collectd.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/monitoring/graphite.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://1byte.pro/python/date-of-python.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
@@ -170,7 +156,28 @@
   </url>
   
   <url>
+    <loc>http://1byte.pro/monitoring/collectd.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/monitoring/graphite.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/python/chromium-on-centos-for-selenium.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/docker/fabfile.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
