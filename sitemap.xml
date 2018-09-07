@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://1byte.pro/devops/install-node-exporter-by-ansible.html</loc>
+    <loc>http://1byte.pro/devops/ansible-basics-playbook.html</loc>
     
-    <lastmod>2018-09-06T10:59:23.889Z</lastmod>
+    <lastmod>2018-09-07T06:24:36.420Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/devops/deploy-node-exporter-by-ansible.html</loc>
+    
+    <lastmod>2018-09-07T06:12:23.136Z</lastmod>
     
   </url>
   
@@ -37,13 +44,6 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/docker/install-jira-manully.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://1byte.pro/jenkins/jenkins.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
@@ -51,14 +51,14 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
+    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/devops/kafka-flume.html</loc>
+    <loc>http://1byte.pro/docker/install-jira-manully.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -86,6 +86,13 @@
   </url>
   
   <url>
+    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
@@ -100,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
+    <loc>http://1byte.pro/devops/kafka-flume.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -114,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/docker/add-logrotate-to-percona-container.html</loc>
+    <loc>http://1byte.pro/docker/compile-image.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
@@ -135,14 +142,14 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/docker/compile-image.html</loc>
+    <loc>http://1byte.pro/python/date-of-python.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/python/date-of-python.html</loc>
+    <loc>http://1byte.pro/docker/add-logrotate-to-percona-container.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     

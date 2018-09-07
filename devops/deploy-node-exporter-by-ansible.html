@@ -15,18 +15,20 @@
 
 
 
-<meta name="description" content="这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#!/usr/bin/pytho">
-<meta name="keywords" content="Python,雕虫小技">
+<meta name="description" content="之前有翻译过一系列Grafana配置Graphite的文章。传送门 在用过Prometheus之后，发现Prometheus配合Grafana也是天造的一对，以设的一双。 对于服务器基础指标监控而言，Prometheus通过node_exporter来收集数据做为数据源,提供了各种与硬件和内核相关的详细指标。 下面分享一个我正在使用的Ansible Playbook，用于批量部署node_expo">
+<meta name="keywords" content="Prometheus,Monitor,Ansible,Playbook">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python日期自然月加减实操">
-<meta property="og:url" content="http://1byte.pro/python/date-of-python.html">
+<meta property="og:title" content="利用Ansible Playbook批量部署node_exporter">
+<meta property="og:url" content="http://1byte.pro/devops/deploy-node-exporter-by-ansible.html">
 <meta property="og:site_name" content="Just 1 Byte">
-<meta property="og:description" content="这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#!/usr/bin/pytho">
+<meta property="og:description" content="之前有翻译过一系列Grafana配置Graphite的文章。传送门 在用过Prometheus之后，发现Prometheus配合Grafana也是天造的一对，以设的一双。 对于服务器基础指标监控而言，Prometheus通过node_exporter来收集数据做为数据源,提供了各种与硬件和内核相关的详细指标。 下面分享一个我正在使用的Ansible Playbook，用于批量部署node_expo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-28T09:41:44.161Z">
+<meta property="og:image" content="http://1byte.pro/images/monitor/Grafana.png">
+<meta property="og:updated_time" content="2018-09-07T06:12:23.136Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python日期自然月加减实操">
-<meta name="twitter:description" content="这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#!/usr/bin/pytho">
+<meta name="twitter:title" content="利用Ansible Playbook批量部署node_exporter">
+<meta name="twitter:description" content="之前有翻译过一系列Grafana配置Graphite的文章。传送门 在用过Prometheus之后，发现Prometheus配合Grafana也是天造的一对，以设的一双。 对于服务器基础指标监控而言，Prometheus通过node_exporter来收集数据做为数据源,提供了各种与硬件和内核相关的详细指标。 下面分享一个我正在使用的Ansible Playbook，用于批量部署node_expo">
+<meta name="twitter:image" content="http://1byte.pro/images/monitor/Grafana.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +58,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Python日期自然月加减实操 | Just 1 Byte</title>
+<title>利用Ansible Playbook批量部署node_exporter | Just 1 Byte</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -252,11 +254,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-date-of-python" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-deploy-node-exporter-by-ansible" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/python/date-of-python.html" class="article-date">
-      <time datetime="2016-09-09T09:06:49.000Z" itemprop="datePublished">2016-09-09</time>
+      <a href="/devops/deploy-node-exporter-by-ansible.html" class="article-date">
+      <time datetime="2018-09-06T10:23:03.000Z" itemprop="datePublished">2018-09-06</time>
 </a>
 
 
@@ -271,7 +273,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Python日期自然月加减实操
+      利用Ansible Playbook批量部署node_exporter
     </h1>
   
 
@@ -280,13 +282,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/python/">Python</a>
+    <a class="article-category-link" href="/categories/devops/">Devops</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/雕虫小技/">雕虫小技</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/monitor/">Monitor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/playbook/">Playbook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/prometheus/">Prometheus</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -296,7 +298,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。"><a href="#这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。" class="headerlink" title="这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。"></a>这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># By Gavin</span></span><br><span class="line"><span class="comment"># Date: 20190909</span></span><br><span class="line"><span class="comment"># Decription: 实现日期的自然月相加减，比如8月31号加一个月是9月30，而不是9月31号或10月1号</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line"><span class="keyword">import</span> math,datetime</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_add_month_interval</span><span class="params">(dt,inter)</span>:</span></span><br><span class="line">    m=dt.month+inter<span class="number">-1</span></span><br><span class="line">    y=dt.year</span><br><span class="line">    y=dt.year+int(m/<span class="number">12</span>)</span><br><span class="line">    m=m % <span class="number">12</span> +<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> (y,m)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_month_interval</span><span class="params">(dt,inter)</span>:</span></span><br><span class="line">    y,m=_add_month_interval(dt,inter)</span><br><span class="line">    y2,m2=_add_month_interval(dt,inter+<span class="number">1</span>)</span><br><span class="line">    maxD=( datetime.date(y2,m2,<span class="number">1</span>)-datetime.timedelta(days=<span class="number">1</span>) ).day</span><br><span class="line">    d= dt.day&lt;=maxD <span class="keyword">and</span> dt.day <span class="keyword">or</span> maxD</span><br><span class="line">    <span class="comment">#return datetime.date(y,m,d)</span></span><br><span class="line">    <span class="keyword">return</span>(y,m,d)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_year_interval</span><span class="params">(dt,inter)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> add_month_interval(dt,inter*<span class="number">12</span>)</span><br><span class="line"><span class="comment"># 上面三个函数与业务无关，可直接嫁接使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># inter为需要变更的月数，需要加一个月就写1，减两个月就写-2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_metric</span><span class="params">(inter)</span>:</span></span><br><span class="line">    conn=MySQLdb.connect(host=<span class="string">'localhost'</span>,user=<span class="string">'root'</span>,passwd=<span class="string">'root'</span>,db=<span class="string">'gavin'</span>,port=<span class="number">3306</span>)</span><br><span class="line">    cur=conn.cursor()</span><br><span class="line">    cur.execute(<span class="string">'select date from metric_impressions order by date desc'</span>) </span><br><span class="line">    <span class="comment">#此时获取到的结果为元组</span></span><br><span class="line">    results = cur.fetchall()</span><br><span class="line">    <span class="comment">#将元组转换为列表</span></span><br><span class="line">    result=list(results)</span><br><span class="line">    <span class="keyword">for</span> now_date <span class="keyword">in</span> result:</span><br><span class="line">        <span class="comment"># now_date[0]格式形如：2016-09-21 12:03:23</span></span><br><span class="line">        timeArray = time.strptime(str(now_date[<span class="number">0</span>]), <span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br><span class="line">        <span class="comment"># time.strptime处理过的数据结构(元组)不能被重新赋值</span></span><br><span class="line">        <span class="comment"># 所以这里需要将其转化为列表</span></span><br><span class="line">        timeArray = list(timeArray)</span><br><span class="line">        dt = datetime.date(timeArray[<span class="number">0</span>],timeArray[<span class="number">1</span>],timeArray[<span class="number">2</span>])</span><br><span class="line">        timeArray[<span class="number">0</span>],timeArray[<span class="number">1</span>],timeArray[<span class="number">2</span>] = add_month_interval(dt,inter)</span><br><span class="line">        new_date = time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>, timeArray)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"new_date:&#123;&#125;     now_date:&#123;&#125;"</span>.format(new_date, now_date[<span class="number">0</span>])</span><br><span class="line">        sql = <span class="string">'update metric_impressions_hour set date="&#123;&#125;" where date="&#123;&#125;"'</span>.format(new_date, now_date[<span class="number">0</span>])</span><br><span class="line">        cur.execute(sql)</span><br><span class="line">    conn.commit()</span><br><span class="line">    conn.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_compaign</span><span class="params">(inter)</span>:</span></span><br><span class="line">    conn=MySQLdb.connect(host=<span class="string">'localhost'</span>,user=<span class="string">'root'</span>,passwd=<span class="string">'root'</span>,db=<span class="string">'gavin'</span>,port=<span class="number">3306</span>)</span><br><span class="line">    cur=conn.cursor()</span><br><span class="line">    cur.execute(<span class="string">'select data_date from campaign order by data_date desc'</span>)</span><br><span class="line">    results = cur.fetchall()</span><br><span class="line">    result=list(results)</span><br><span class="line">    <span class="keyword">for</span> now_date <span class="keyword">in</span> result:</span><br><span class="line">        <span class="comment"># now_date[0]格式形如：20160921</span></span><br><span class="line">        timeArray = time.strptime(str(now_date[<span class="number">0</span>]), <span class="string">"%Y%m%d"</span>)</span><br><span class="line">        timeArray = list(timeArray)</span><br><span class="line">        dt = datetime.date(timeArray[<span class="number">0</span>],timeArray[<span class="number">1</span>],timeArray[<span class="number">2</span>])</span><br><span class="line">        timeArray[<span class="number">0</span>],timeArray[<span class="number">1</span>],timeArray[<span class="number">2</span>] = add_month_interval(dt,inter)</span><br><span class="line">        new_date = time.strftime(<span class="string">"%Y%m%d"</span>, timeArray)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"new_date:&#123;&#125;     now_date:&#123;&#125;"</span>.format(new_date, now_date[<span class="number">0</span>])</span><br><span class="line">        sql = <span class="string">'update campaign_stats set data_date="&#123;&#125;" where data_date="&#123;&#125;"'</span>.format(new_date, now_date[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">print</span> sql</span><br><span class="line">        cur.execute(sql)</span><br><span class="line">    conn.commit()</span><br><span class="line">    conn.close()</span><br><span class="line"></span><br><span class="line">update_compaign(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+        <p>之前有翻译过一系列Grafana配置Graphite的文章。<a href="https://1byte.pro/monitoring/graphite.html">传送门</a></p>
+<p>在用过Prometheus之后，发现Prometheus配合Grafana也是天造的一对，以设的一双。</p>
+<p>对于服务器基础指标监控而言，Prometheus通过node_exporter来收集数据做为数据源,提供了各种与硬件和内核相关的详细指标。</p>
+<p>下面分享一个我正在使用的Ansible Playbook，用于批量部署node_exporter到多个目标主机。<br><a id="more"></a></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- hosts:</span> <span class="string">yourservers</span></span><br><span class="line"><span class="attr">  user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">  gather_facts:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  vars:</span></span><br><span class="line"><span class="attr">    - user:</span> <span class="string">"prometheus"</span></span><br><span class="line"><span class="attr">    - group:</span> <span class="string">"prometheus"</span></span><br><span class="line"><span class="attr">    - node_exporter_package:</span> <span class="string">"node_exporter-0.16.0.linux-amd64"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">  - group:</span> <span class="string">name=&#123;&#123;</span> <span class="string">group&#125;&#125;</span> <span class="string">state=present</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Add</span> <span class="string">user</span> <span class="string">prometheus</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">name=&#123;&#123;</span> <span class="string">user</span> <span class="string">&#125;&#125;</span> <span class="string">shell=/sbin/nologin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - file:</span> <span class="string">path=/usr/local/prometheus</span> <span class="string">owner=&#123;&#123;</span> <span class="string">user&#125;&#125;</span> <span class="string">group=&#123;&#123;</span> <span class="string">group</span> <span class="string">&#125;&#125;</span> <span class="string">mode=750</span> <span class="string">state=directory</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Sync</span> <span class="string">files</span></span><br><span class="line"><span class="attr">    copy:</span> <span class="string">src=&#123;&#123;</span> <span class="string">item.src</span> <span class="string">&#125;&#125;</span> <span class="string">dest=&#123;&#123;</span> <span class="string">item.dest</span> <span class="string">&#125;&#125;</span> <span class="string">owner=&#123;&#123;</span> <span class="string">user&#125;&#125;</span> <span class="string">group=&#123;&#123;</span> <span class="string">group</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">    with_items:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">&#123;src:</span> <span class="string">"node_exporter.service"</span><span class="string">,</span> <span class="attr">dest:</span> <span class="string">"/usr/lib/systemd/system"</span><span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Unpack</span> <span class="string">package</span></span><br><span class="line"><span class="attr">    unarchive:</span> <span class="string">src=&#123;&#123;</span> <span class="string">node_exporter_package</span> <span class="string">&#125;&#125;.tar.gz</span> <span class="string">dest=/usr/local/prometheus</span> <span class="string">owner=&#123;&#123;</span> <span class="string">user</span> <span class="string">&#125;&#125;</span> <span class="string">group=&#123;&#123;</span> <span class="string">group</span> <span class="string">&#125;&#125;</span> <span class="string">creates=/usr/local/prometheus/node_exporter</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Rename</span> <span class="string">the</span> <span class="string">path</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">mv</span> <span class="string">/usr/local/prometheus/&#123;&#123;</span> <span class="string">node_exporter_package</span> <span class="string">&#125;&#125;</span> <span class="string">/usr/local/prometheus/node_exporter</span> <span class="string">creates=/usr/local/prometheus/node_exporter</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - file:</span> <span class="string">path=/usr/local/prometheus/node_exporter</span> <span class="string">owner=&#123;&#123;</span> <span class="string">user&#125;&#125;</span> <span class="string">group=&#123;&#123;</span> <span class="string">group</span> <span class="string">&#125;&#125;</span> <span class="string">mode=750</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Start</span> <span class="string">service</span> <span class="string">prometheus,</span> <span class="string">if</span> <span class="string">not</span> <span class="string">running</span></span><br><span class="line"><span class="attr">    service:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">node_exporter.service</span></span><br><span class="line"><span class="attr">      state:</span> <span class="string">started</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：软件采用的是提前下载至本地然后同步到目标主机的方式，也是线上部署最为稳妥的方式。</p>
+</blockquote>
+<p>Grafana美图赏析：<br><img src="/images/monitor/Grafana.png" alt="Grafana Screenshot"></p>
 
       
     </div>
@@ -305,13 +315,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/python/date-of-python.html">Python日期自然月加减实操</a></p>
+        <p><span>本文标题:</span><a href="/devops/deploy-node-exporter-by-ansible.html">利用Ansible Playbook批量部署node_exporter</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
-        <p><span>发布时间:</span>2016-09-09, 09:06:49</p>
-        <p><span>最后更新:</span>2018-08-28, 09:41:44</p>
+        <p><span>发布时间:</span>2018-09-06, 10:23:03</p>
+        <p><span>最后更新:</span>2018-09-07, 06:12:23</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/python/date-of-python.html" title="Python日期自然月加减实操">http://1byte.pro/python/date-of-python.html</a>
-            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/python/date-of-python.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/devops/deploy-node-exporter-by-ansible.html" title="利用Ansible Playbook批量部署node_exporter">http://1byte.pro/devops/deploy-node-exporter-by-ansible.html</a>
+            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/devops/deploy-node-exporter-by-ansible.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -323,16 +333,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/monitoring/graphite.html">
-                    Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/jenkins/jenkins.html">
-                    Jenkins Operation
+                <a href="/bigdata/foreach-forearchpartition.html">
+                    Spark性能优化之foreach与foreachPartition
                 </a>
             </div>
         
@@ -344,7 +348,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。"><span class="toc-number">1.</span> <span class="toc-text">这段代码用于对数据库中两个表中不同形式的时间字段进行月份变更操作，月份的变更以自然月形式形式进行。</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -387,8 +391,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://1byte.pro/python/date-of-python.html';
-            this.page.identifier = 'python/date-of-python.html';
+            this.page.url = 'http://1byte.pro/devops/deploy-node-exporter-by-ansible.html';
+            this.page.identifier = 'devops/deploy-node-exporter-by-ansible.html';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -427,8 +431,8 @@
 
 
     <script id="dsq-count-scr" src="//cancellara.disqus.com/count.js" async></script>
-    <span class="disqus-comment-count" data-disqus-identifier="python/date-of-python.html"></span>
-    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/python/date-of-python.html"></span>
+    <span class="disqus-comment-count" data-disqus-identifier="devops/deploy-node-exporter-by-ansible.html"></span>
+    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/devops/deploy-node-exporter-by-ansible.html"></span>
     <script>
         $(".disqus-comment-count").hide();
         var $disqusCount = $(".disqus-comment-count");
@@ -448,15 +452,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/monitoring/graphite.html" title="上一篇: Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/jenkins/jenkins.html" title="下一篇: Jenkins Operation">
+            <a href="/bigdata/foreach-forearchpartition.html" title="下一篇: Spark性能优化之foreach与foreachPartition">
                 <i class="fa fa-angle-right"></i>
             </a>
         
