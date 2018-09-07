@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1377560-1091d90452474ae0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1377560-d21b5d629516270b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1377560-05554bfab81e2628.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-09-07T06:24:36.420Z">
+<meta property="og:updated_time" content="2018-09-07T06:27:16.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible基础-Playbook入门">
 <meta name="twitter:description" content="1234难度指数: 4星(满星5星)技术指数: 5星(满星5星)理论指数: 4星(满星5星)面向人群: 自动化运维&amp;amp;运维开发 1.    Playbook简介像很多其它配置文件管理方法一样，Ansible使用一种比较直白的方法来描述自己的任务配置文件。Ansible 的任务配置文件被称之为“playbook”，我们可以称之为“剧本”。每一出剧本（playbook）中都包含一系列的任务，这">
@@ -317,7 +317,7 @@
 <li>2    YAML和脚本语言的交互性好</li>
 <li>3    YAML使用实现语言的数据类型</li>
 <li>4    YAML有一个一致的信息模型</li>
-<li>5    YAML易于实现<br>###1.2.2 YAML语法</li>
+<li>5    YAML易于实现<h3 id="1-2-2-YAML语法"><a href="#1-2-2-YAML语法" class="headerlink" title="1.2.2 YAML语法"></a>1.2.2 YAML语法</h3></li>
 <li>1    YAML使用可打印的Unicode字符，可使用UTF-8或UTF-16。</li>
 <li>2    使用空白字符未文件缩排来表示结构；不过不能使用跳格字符。</li>
 <li>3    注解由井字号( # )开始，可以出现在一行中的任何位置，而且范围只有一行(也就是一般所谓的单行注解)</li>
@@ -370,7 +370,7 @@
 <p>比如下图，我们再次执行playbook: temp.yml，当ansible发现playbook中的play都已被完成，它将直接返回ok状态码，速度非常之快。<br>如果是shell脚本，肯定会硬着头皮，把所用操作再做一遍。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1377560-d21b5d629516270b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
 <p>在正式运行playbook之前，可以使用–check 或 -C 选项来检测playbook都会改变哪些内容，显示的结果跟真正执行时一模一样，但不会真的对被管理的服务器产生影响</p>
-<h1 id="3-Ansible-playbook命令详解"><a href="#3-Ansible-playbook命令详解" class="headerlink" title="3.    Ansible-playbook命令详解"></a>3.    Ansible-playbook命令详解</h1><h2 id="3-1-限定执行范围"><a href="#3-1-限定执行范围" class="headerlink" title="3.1 限定执行范围"></a>3.1 限定执行范围</h2><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--limit</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-Ansible-playbook命令详解"><a href="#3-Ansible-playbook命令详解" class="headerlink" title="3.    Ansible-playbook命令详解"></a>3.    Ansible-playbook命令详解</h1><h2 id="3-1-限定执行范围"><a href="#3-1-限定执行范围" class="headerlink" title="3.1 限定执行范围"></a>3.1 限定执行范围</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--<span class="built_in">limit</span></span><br></pre></td></tr></table></figure>
 <p>如果我们运行上面的例子，会发现所有被ansible管理的主机都会被操作。<br>我们可以通过修改“- hosts：”字段来指定哪些主机将会应用playbook的操作，</p>
 <blockquote>
 <p>   指定一台主机：<a href="http://www.magedu.com" target="_blank" rel="noopener">www.magedu.com</a><br>   指定多台主机：<a href="http://www.magedu.com,www.osstep.com" target="_blank" rel="noopener">www.magedu.com,www.osstep.com</a><br>   指定一组主机：dbserver</p>
@@ -383,7 +383,7 @@
 <h1 id="4-Ansible-playbook-用户与权限设置"><a href="#4-Ansible-playbook-用户与权限设置" class="headerlink" title="4.    Ansible-playbook: 用户与权限设置"></a>4.    Ansible-playbook: 用户与权限设置</h1><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--remote-user</span></span><br></pre></td></tr></table></figure>
 <p>Playbook中，如果在与hosts同组的字段中没有定义user，那么Ansible将会使用你在inventory文件中定义的用户，如里inventory文件中也没定义用户，Ansible将默认使用当前系统用户身份来通过SSH连接远程主机，在运程程主机中运行play内容。</p>
 <p>我们也可以直接在ansible-playbook中使用 –remote-user选项来指定用户：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ansible-playbook playbook.yml --remote-user=tom</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--ask-sudo-pass</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--ask-sudo-<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 <p>在某些情况下，我们需要传递sudo密码到远程主机，来保证sudo命令的正常运行。这时，可以使用–ask-sudo-pass (-K)选项来交互式的输入密码。</p>
 <p>–sudo<br>使用–sudo选项，可以强制所有play都使用sudo用户，同时使用–sudo-user选项指定切换到具体哪个用户，如果不指定，则默认以root身份运行。</p>
 <p>比如，当前用户Tom想以Jerry的身份运行playbook，命令如下：<br>$ ansible-playbook playbook.yml –sudo –sudo-user=jerry –ask-sudo-pass<br>执行过程中，会要求用户输入Jerry的密码。</p>
@@ -403,7 +403,7 @@
         <p><span>本文标题:</span><a href="/devops/ansible-basics-playbook.html">Ansible基础-Playbook入门</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
         <p><span>发布时间:</span>2017-07-07, 16:15:35</p>
-        <p><span>最后更新:</span>2018-09-07, 06:24:36</p>
+        <p><span>最后更新:</span>2018-09-07, 06:27:16</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/devops/ansible-basics-playbook.html" title="Ansible基础-Playbook入门">http://1byte.pro/devops/ansible-basics-playbook.html</a>
             <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/devops/ansible-basics-playbook.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -439,7 +439,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Playbook简介"><span class="toc-number">1.</span> <span class="toc-text">1.    Playbook简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Playbook语法简介"><span class="toc-number">1.1.</span> <span class="toc-text">1.1    Playbook语法简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-YAML简介"><span class="toc-number">1.2.</span> <span class="toc-text">1.2    YAML简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-YAML特性"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 YAML特性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Playbook实战"><span class="toc-number">2.</span> <span class="toc-text">2.    Playbook实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Shell脚本与Playbook的转换"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Shell脚本与Playbook的转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Playbook案例逐行剖析"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Playbook案例逐行剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Playbook与Shell脚本差异对比"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Playbook与Shell脚本差异对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Ansible-playbook命令详解"><span class="toc-number">3.</span> <span class="toc-text">3.    Ansible-playbook命令详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-限定执行范围"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 限定执行范围</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Ansible-playbook-用户与权限设置"><span class="toc-number">4.</span> <span class="toc-text">4.    Ansible-playbook: 用户与权限设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Ansible-playbook-其它选项"><span class="toc-number">5.</span> <span class="toc-text">5.    Ansible-playbook: 其它选项</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Playbook简介"><span class="toc-number">1.</span> <span class="toc-text">1.    Playbook简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Playbook语法简介"><span class="toc-number">1.1.</span> <span class="toc-text">1.1    Playbook语法简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-YAML简介"><span class="toc-number">1.2.</span> <span class="toc-text">1.2    YAML简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-YAML特性"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 YAML特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-YAML语法"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2 YAML语法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Playbook实战"><span class="toc-number">2.</span> <span class="toc-text">2.    Playbook实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Shell脚本与Playbook的转换"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Shell脚本与Playbook的转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Playbook案例逐行剖析"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Playbook案例逐行剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Playbook与Shell脚本差异对比"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Playbook与Shell脚本差异对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Ansible-playbook命令详解"><span class="toc-number">3.</span> <span class="toc-text">3.    Ansible-playbook命令详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-限定执行范围"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 限定执行范围</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Ansible-playbook-用户与权限设置"><span class="toc-number">4.</span> <span class="toc-text">4.    Ansible-playbook: 用户与权限设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Ansible-playbook-其它选项"><span class="toc-number">5.</span> <span class="toc-text">5.    Ansible-playbook: 其它选项</span></a></li></ol>
         
     </div>
     <style>
