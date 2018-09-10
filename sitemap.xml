@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/coding/scala-exception-handler.html</loc>
+    
+    <lastmod>2018-09-10T09:52:37.028Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/devops/ansible-basics-playbook.html</loc>
     
     <lastmod>2018-09-07T06:27:16.393Z</lastmod>
@@ -44,13 +51,6 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/jenkins/jenkins.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://1byte.pro/issues/jira-over-https.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/coding/scala-exception-handler.html</loc>
+    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -86,14 +86,14 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
+    <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://1byte.pro/devops/install-freeipa-server-on-centos.html</loc>
+    <loc>http://1byte.pro/jenkins/jenkins.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
