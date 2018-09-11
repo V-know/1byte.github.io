@@ -2136,7 +2136,7 @@ aside.comment-bar:active {
 }
 .article-entry pre,
 .article-entry .highlight {
-  background: rgba(32,34,37,0.85);
+  background: rgba(0,0,0,0.85);
   margin: auto;
   padding: 0.35em 1.5em;
   border-style: solid;
@@ -2216,7 +2216,7 @@ aside.comment-bar:active {
   border-style: solid;
   border-color: #ddd;
   border-width: 1px 0;
-  background: rgba(32,34,37,0.85);
+  background: rgba(0,0,0,0.85);
   padding: 15px 20px 15px 0;
 }
 .article-entry .gist .gist-file {
@@ -2242,7 +2242,7 @@ aside.comment-bar:active {
   border: none;
 }
 .article-entry .gist .gist-file .gist-meta {
-  background: rgba(32,34,37,0.85);
+  background: rgba(0,0,0,0.85);
   color: #969896;
   font: 0.85em "Lucida Grande", Verdana, "Helvetica Neue", Arial;
   text-shadow: 0 0;
