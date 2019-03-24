@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1byte.pro/python/celery-exc-type-error.html</loc>
+    
+    <lastmod>2019-03-24T09:48:55.110Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/wallstreetcn/index.html</loc>
+    
+    <lastmod>2019-03-24T09:41:11.314Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/about/index.html</loc>
+    
+    <lastmod>2019-01-11T07:07:49.817Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/bigdata/hbase-rowkey-rules.html</loc>
+    
+    <lastmod>2018-11-28T15:18:50.206Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/bigdata/zookeeper-election-rules.html</loc>
+    
+    <lastmod>2018-11-27T10:50:44.620Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/coding/scala-exception-handler.html</loc>
     
     <lastmod>2018-09-10T09:52:37.028Z</lastmod>
@@ -44,42 +79,7 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/about/index.html</loc>
-    
-    <lastmod>2018-08-29T06:32:19.855Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/docker/install-jira-manully.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://1byte.pro/devops/install-freeipa-client.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/docker/ss5.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/voice/v.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -93,6 +93,13 @@
   </url>
   
   <url>
+    <loc>http://1byte.pro/docker/install-jira-manully.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://1byte.pro/jenkins/jenkins.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
@@ -100,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/monitoring/seyren.html</loc>
+    <loc>http://1byte.pro/issues/jira-over-https.html</loc>
     
     <lastmod>2018-08-28T09:41:44.165Z</lastmod>
     
@@ -114,7 +121,42 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/opinions/fake-chrome.html</loc>
+    <loc>http://1byte.pro/voice/v.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/docker/ss5.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/monitoring/seyren.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.165Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/docker/add-logrotate-to-percona-container.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/python/date-of-python.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/python/chromium-on-centos-for-selenium.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
@@ -122,6 +164,27 @@
   
   <url>
     <loc>http://1byte.pro/docker/compile-image.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/opinions/fake-chrome.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/docker/docker-deployment.html</loc>
+    
+    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/docker/fabfile.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     
@@ -142,27 +205,6 @@
   </url>
   
   <url>
-    <loc>http://1byte.pro/python/date-of-python.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/docker/add-logrotate-to-percona-container.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/docker/docker-deployment.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://1byte.pro/monitoring/collectd.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
@@ -171,20 +213,6 @@
   
   <url>
     <loc>http://1byte.pro/monitoring/graphite.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/python/chromium-on-centos-for-selenium.html</loc>
-    
-    <lastmod>2018-08-28T09:41:44.161Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://1byte.pro/docker/fabfile.html</loc>
     
     <lastmod>2018-08-28T09:41:44.161Z</lastmod>
     

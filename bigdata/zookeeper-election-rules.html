@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gavin Wei" />
+
+
+
+<meta name="description" content="选择机制中的概念服务器ID比如有三台服务器，编号分别是1,2,3。  编号越大在选择算法中的权重越大。  数据ID（或事务ID）服务器中存放的最大数据ID.  值越大说明数据越新，在选举算法中数据越新权重越大。  逻辑时钟">
+<meta name="keywords" content="性能优化,集群,zookeeper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper选举机制">
+<meta property="og:url" content="http://1byte.pro/bigdata/zookeeper-election-rules.html">
+<meta property="og:site_name" content="Just 1 Byte">
+<meta property="og:description" content="选择机制中的概念服务器ID比如有三台服务器，编号分别是1,2,3。  编号越大在选择算法中的权重越大。  数据ID（或事务ID）服务器中存放的最大数据ID.  值越大说明数据越新，在选举算法中数据越新权重越大。  逻辑时钟">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdn.net/20180128213955030?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmd5dXFpYW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img-blog.csdn.net/20180128214003138?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmd5dXFpYW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-11-27T10:50:44.620Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zookeeper选举机制">
+<meta name="twitter:description" content="选择机制中的概念服务器ID比如有三台服务器，编号分别是1,2,3。  编号越大在选择算法中的权重越大。  数据ID（或事务ID）服务器中存放的最大数据ID.  值越大说明数据越新，在选举算法中数据越新权重越大。  逻辑时钟">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180128213955030?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmd5dXFpYW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-big-counter.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Zookeeper选举机制 | Just 1 Byte</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b6bfb7348dc08eb"></script>
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gavin Wei</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">○|||||||○</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/about/">九评博主</a></li>
+                        
+                            <li><a href="/archives/">文章归档</a></li>
+                        
+                            <li><a href="/wallstreetcn/">财经时讯</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
+                            
+                                <a class="fa Twitter" href="http://twitter.com/mrunamed" title="Twitter"></a>
+                            
+                                <a class="fa Quora" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
+                            
+                                <a class="fa CSDN" href="mailto:none@canstop.me" title="CSDN"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bigdata/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/celery/">Celery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chromium/">Chromium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dind/">DIND</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask/">Flask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freeipa/">FreeIPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">Gitlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hbase/">Hbase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/issue/">Issue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">Jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jira/">Jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">Monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitoring/">Monitoring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/playbook/">Playbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/">Prometheus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robustness/">Robustness</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/selenium/">Selenium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shame/">Shame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/troubleshooting/">Troubleshooting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v/">V</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/collectd/">collectd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/container/">container</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabfile/">fabfile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/">grafana</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphite/">graphite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jira/">jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lorote/">lorote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/percona/">percona</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/seyren/">seyren</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ss5/">ss5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作笔记/">工作笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志切割/">日志切割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/红芯浏览器/">红芯浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雕虫小技/">雕虫小技</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">爱单车、爱Linux、学摄影 《Ansible权威指南》作者</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gavin Wei</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gavin Wei</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">○|||||||○</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/about/">九评博主</a></li>
+                
+                    <li><a href="/archives/">文章归档</a></li>
+                
+                    <li><a href="/wallstreetcn/">财经时讯</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="http://twitter.com/mrunamed" title="Twitter"></a>
+                            
+                                <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="mailto:none@canstop.me" title="CSDN"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-zookeeper-election-rules" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/bigdata/zookeeper-election-rules.html" class="article-date">
+      <time datetime="2018-09-20T02:45:28.000Z" itemprop="datePublished">2018-09-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Zookeeper选举机制
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">BigData</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集群/">集群</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="选择机制中的概念"><a href="#选择机制中的概念" class="headerlink" title="选择机制中的概念"></a>选择机制中的概念</h2><h3 id="服务器ID"><a href="#服务器ID" class="headerlink" title="服务器ID"></a>服务器ID</h3><p>比如有三台服务器，编号分别是1,2,3。</p>
+<blockquote>
+<p>编号越大在选择算法中的权重越大。</p>
+</blockquote>
+<h3 id="数据ID（或事务ID）"><a href="#数据ID（或事务ID）" class="headerlink" title="数据ID（或事务ID）"></a>数据ID（或事务ID）</h3><p>服务器中存放的最大数据ID.</p>
+<blockquote>
+<p>值越大说明数据越新，在选举算法中数据越新权重越大。</p>
+</blockquote>
+<h3 id="逻辑时钟"><a href="#逻辑时钟" class="headerlink" title="逻辑时钟"></a>逻辑时钟</h3><a id="more"></a>
+<p>或者叫投票的次数，同一轮投票过程中的逻辑时钟值是相同的。每投完一次票这个数据就会增加，然后与接收到的其它服务器返回的投票信息中的数值相比，根据不同的值做出不同的判断。</p>
+<h3 id="选举状态"><a href="#选举状态" class="headerlink" title="选举状态"></a>选举状态</h3><ul>
+<li>LOOKING，竞选状态。</li>
+<li>FOLLOWING，随从状态，同步leader状态，参与投票。</li>
+<li>OBSERVING，观察状态,同步leader状态，不参与投票。</li>
+<li>LEADING，领导者状态。</li>
+</ul>
+<h2 id="选举消息内容"><a href="#选举消息内容" class="headerlink" title="选举消息内容"></a>选举消息内容</h2><p>在投票完成后，需要将投票信息发送给集群中的所有服务器，它包含如下内容。</p>
+<ul>
+<li>服务器ID</li>
+<li>数据ID</li>
+<li>逻辑时钟</li>
+<li>选举状态</li>
+</ul>
+<hr>
+<p>以下内容摘自<br><a href="https://blog.csdn.net/chengyuqiang/article/details/79190061" target="_blank" rel="noopener">https://blog.csdn.net/chengyuqiang/article/details/79190061</a> </p>
+<h4 id="Zookeeper集群初始化启动时Leader选举"><a href="#Zookeeper集群初始化启动时Leader选举" class="headerlink" title="Zookeeper集群初始化启动时Leader选举"></a>Zookeeper集群初始化启动时Leader选举</h4><p>若进行Leader选举，则至少需要两台机器，这里选取3台机器组成的服务器集群为例。<br>初始化启动期间Leader选举流程如下图所示<br><img src="https://img-blog.csdn.net/20180128213955030?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmd5dXFpYW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="初始化启动时Leader选举"><br>在集群初始化阶段，当有一台服务器ZK1启动时，其单独无法进行和完成Leader选举，当第二台服务器ZK2启动时，此时两台机器可以相互通信，每台机器都试图找到Leader，于是进入Leader选举过程。选举过程开始，过程如下：</p>
+<ol>
+<li><strong>每个Server发出一个投票。</strong> 由于是初始情况，ZK1和ZK2都会将自己作为Leader服务器来进行投票，每次投票会包含所推举的服务器的myid和ZXID，使用(myid, ZXID)来表示，此时ZK1的投票为(1, 0)，ZK2的投票为(2, 0)，然后各自将这个投票发给集群中其他机器。</li>
+<li><strong>接受来自各个服务器的投票。</strong>集群的每个服务器收到投票后，首先判断该投票的有效性，如检查是否是本轮投票、是否来自LOOKING状态的服务器。</li>
+<li><strong>处理投票。</strong> 针对每一个投票，服务器都需要将别人的投票和自己的投票进行比较，规则如下：<ul>
+<li>优先检查ZXID。ZXID比较大的服务器优先作为Leader。</li>
+<li>如果ZXID相同，那么就比较myid。myid较大的服务器作为Leader服务器。</li>
+</ul>
+</li>
+</ol>
+<p>对于ZK1而言，它的投票是(1, 0)，接收ZK2的投票为(2, 0)，首先会比较两者的ZXID，均为0，再比较myid，此时ZK2的myid最大，于是ZK2胜。ZK1更新自己的投票为(2, 0)，并将投票重新发送给ZK2。 </p>
+<ol start="4">
+<li><strong>统计投票。</strong> 每次投票后，服务器都会统计投票信息，判断是否已经有过半机器接受到相同的投票信息，对于ZK1、ZK2而言，都统计出集群中已经有两台机器接受了(2, 0)的投票信息，此时便认为已经选出ZK2作为Leader。 </li>
+<li><strong>改变服务器状态。</strong> 一旦确定了Leader，每个服务器就会更新自己的状态，如果是Follower，那么就变更为FOLLOWING，如果是Leader，就变更为LEADING。当新的Zookeeper节点ZK3启动时，发现已经有Leader了，不再选举，直接将直接的状态从LOOKING改为FOLLOWING。</li>
+</ol>
+<h4 id="Zookeeper集群运行期间Leader重新选"><a href="#Zookeeper集群运行期间Leader重新选" class="headerlink" title="Zookeeper集群运行期间Leader重新选"></a>Zookeeper集群运行期间Leader重新选</h4><p>在Zookeeper运行期间，如果Leader节点挂了，那么整个Zookeeper集群将暂停对外服务，进入新一轮Leader选举。<br>假设正在运行的有ZK1、ZK2、ZK3三台服务器，当前Leader是ZK2，若某一时刻Leader挂了，此时便开始Leader选举。选举过程如下图所示。<br><img src="https://img-blog.csdn.net/20180128214003138?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmd5dXFpYW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="运行期间Leader重新选"></p>
+<ol>
+<li>变更状态。Leader挂后，余下的非Observer服务器都会讲自己的服务器状态变更为LOOKING，然后开始进入Leader选举过程 </li>
+<li>每个Server会发出一个投票。在运行期间，每个服务器上的ZXID可能不同，此时假定ZK1的ZXID为124，ZK3的ZXID为123；在第一轮投票中，ZK1和ZK3都会投自己，产生投票(1, 124)，(3, 123)，然后各自将投票发送给集群中所有机器。</li>
+<li>接收来自各个服务器的投票。与启动时过程相同。 </li>
+<li>处理投票。与启动时过程相同，由于ZK1事务ID大，ZK1将会成为Leader。</li>
+<li>统计投票。与启动时过程相同。</li>
+<li>改变服务器的状态。与启动时过程相同</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/bigdata/zookeeper-election-rules.html">Zookeeper选举机制</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
+        <p><span>发布时间:</span>2018-09-20, 10:45:28</p>
+        <p><span>最后更新:</span>2018-11-27, 18:50:44</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/bigdata/zookeeper-election-rules.html" title="Zookeeper选举机制">http://1byte.pro/bigdata/zookeeper-election-rules.html</a>
+            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/bigdata/zookeeper-election-rules.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/bigdata/hbase-rowkey-rules.html">
+                    Hbase Rowkey设计规范参考
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/devops/deploy-node-exporter-by-ansible.html">
+                    利用Ansible Playbook批量部署node_exporter
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择机制中的概念"><span class="toc-number">1.</span> <span class="toc-text">选择机制中的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器ID"><span class="toc-number">1.1.</span> <span class="toc-text">服务器ID</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据ID（或事务ID）"><span class="toc-number">1.2.</span> <span class="toc-text">数据ID（或事务ID）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑时钟"><span class="toc-number">1.3.</span> <span class="toc-text">逻辑时钟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选举状态"><span class="toc-number">1.4.</span> <span class="toc-text">选举状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选举消息内容"><span class="toc-number">2.</span> <span class="toc-text">选举消息内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Zookeeper集群初始化启动时Leader选举"><span class="toc-number">2.0.1.</span> <span class="toc-text">Zookeeper集群初始化启动时Leader选举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Zookeeper集群运行期间Leader重新选"><span class="toc-number">2.0.2.</span> <span class="toc-text">Zookeeper集群运行期间Leader重新选</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://1byte.pro/bigdata/zookeeper-election-rules.html';
+            this.page.identifier = 'bigdata/zookeeper-election-rules.html';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//cancellara.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+</section>
+
+
+    <script id="dsq-count-scr" src="//cancellara.disqus.com/count.js" async></script>
+    <span class="disqus-comment-count" data-disqus-identifier="bigdata/zookeeper-election-rules.html"></span>
+    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/bigdata/zookeeper-election-rules.html"></span>
+    <script>
+        $(".disqus-comment-count").hide();
+        var $disqusCount = $(".disqus-comment-count");
+        $disqusCount.bind("DOMNodeInserted", function(e) {
+            $(".count-comment").text(
+                $(this).text().replace(/[^0-9]/ig,"")
+            )
+            DISQUSWIDGETS.getCount({reset: true});
+        })
+    </script>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/bigdata/hbase-rowkey-rules.html" title="上一篇: Hbase Rowkey设计规范参考">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/devops/deploy-node-exporter-by-ansible.html" title="下一篇: 利用Ansible Playbook批量部署node_exporter">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/python/celery-exc-type-error.html">Celery任务状态报错一例</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/hbase-rowkey-rules.html">Hbase Rowkey设计规范参考</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/zookeeper-election-rules.html">Zookeeper选举机制</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/deploy-node-exporter-by-ansible.html">利用Ansible Playbook批量部署node_exporter</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/foreach-forearchpartition.html">Spark性能优化之foreach与foreachPartition</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/kafka-flume.html">Kafka与Flume区别</a></li><li class="post-list-item"><a class="post-list-link" href="/coding/scala-exception-handler.html">Scala异常获取一例</a></li><li class="post-list-item"><a class="post-list-link" href="/opinions/fake-chrome.html">红芯浏览器下载</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/hadoop-banlancer.html">Hadoop集群中banlancer用法简介</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/jira-over-https.html">Nginx开启HTTPS反向代理访问Jira失败</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-client.html">FreeIPA Client 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-server-on-centos.html">FreeIPA Server 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/RobustnessOfShellScript.html">如何写出健壮的 Bash 脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/ansible-basics-playbook.html">Ansible基础-Playbook入门</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2019 Gavin Wei
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-123125086-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Gavin Wei" />
+
+
+
+<meta name="description" content="HBase是三维有序存储的，通过rowkey（行键），column key（column family和qualifier）和TimeStamp（时间戳）这个三个维度可以对HBase中的数据进行快速定位。 HBase中rowkey可以唯一标识一行记录，在HBase查询的时候，有以下几种方式：  通过get方式，指定rowkey获取唯一一条记录 通过scan方式，设置startRow和stopRow">
+<meta name="keywords" content="性能优化,Hbase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hbase Rowkey设计规范参考">
+<meta property="og:url" content="http://1byte.pro/bigdata/hbase-rowkey-rules.html">
+<meta property="og:site_name" content="Just 1 Byte">
+<meta property="og:description" content="HBase是三维有序存储的，通过rowkey（行键），column key（column family和qualifier）和TimeStamp（时间戳）这个三个维度可以对HBase中的数据进行快速定位。 HBase中rowkey可以唯一标识一行记录，在HBase查询的时候，有以下几种方式：  通过get方式，指定rowkey获取唯一一条记录 通过scan方式，设置startRow和stopRow">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-28T15:18:50.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hbase Rowkey设计规范参考">
+<meta name="twitter:description" content="HBase是三维有序存储的，通过rowkey（行键），column key（column family和qualifier）和TimeStamp（时间戳）这个三个维度可以对HBase中的数据进行快速定位。 HBase中rowkey可以唯一标识一行记录，在HBase查询的时候，有以下几种方式：  通过get方式，指定rowkey获取唯一一条记录 通过scan方式，设置startRow和stopRow">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-big-counter.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Hbase Rowkey设计规范参考 | Just 1 Byte</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b6bfb7348dc08eb"></script>
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gavin Wei</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">○|||||||○</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/about/">九评博主</a></li>
+                        
+                            <li><a href="/archives/">文章归档</a></li>
+                        
+                            <li><a href="/wallstreetcn/">财经时讯</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
+                            
+                                <a class="fa Twitter" href="http://twitter.com/mrunamed" title="Twitter"></a>
+                            
+                                <a class="fa Quora" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
+                            
+                                <a class="fa CSDN" href="mailto:none@canstop.me" title="CSDN"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ansible/">Ansible</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bigdata/">BigData</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/celery/">Celery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chromium/">Chromium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dind/">DIND</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/exception/">Exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask/">Flask</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flume/">Flume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/freeipa/">FreeIPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">Gitlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">Hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hbase/">Hbase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/issue/">Issue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jenkins/">Jenkins</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jira/">Jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/">Kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitor/">Monitor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/monitoring/">Monitoring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/playbook/">Playbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prometheus/">Prometheus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robustness/">Robustness</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/selenium/">Selenium</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shame/">Shame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/troubleshooting/">Troubleshooting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v/">V</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/collectd/">collectd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/container/">container</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabfile/">fabfile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grafana/">grafana</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphite/">graphite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jira/">jira</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lorote/">lorote</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/percona/">percona</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/seyren/">seyren</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ss5/">ss5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作笔记/">工作笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志切割/">日志切割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/红芯浏览器/">红芯浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雕虫小技/">雕虫小技</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">爱单车、爱Linux、学摄影 《Ansible权威指南》作者</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gavin Wei</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gavin Wei</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">○|||||||○</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/about/">九评博主</a></li>
+                
+                    <li><a href="/archives/">文章归档</a></li>
+                
+                    <li><a href="/wallstreetcn/">财经时讯</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/users/7a890139a00e/latest_articles" title="简书"></a>
+                            
+                                <a class="fa Twitter" target="_blank" href="http://twitter.com/mrunamed" title="Twitter"></a>
+                            
+                                <a class="fa Quora" target="_blank" href="https://www.quora.com/profile/Gavin-Hill-5" title="Quora"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="mailto:none@canstop.me" title="CSDN"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-hbase-rowkey-rules" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/bigdata/hbase-rowkey-rules.html" class="article-date">
+      <time datetime="2018-10-25T07:14:23.000Z" itemprop="datePublished">2018-10-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hbase Rowkey设计规范参考
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">BigData</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hbase/">Hbase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>HBase是三维有序存储的，通过rowkey（行键），column key（column family和qualifier）和TimeStamp（时间戳）这个三个维度可以对HBase中的数据进行快速定位。</p>
+<p>HBase中rowkey可以唯一标识一行记录，在HBase查询的时候，有以下几种方式：</p>
+<ol>
+<li>通过get方式，指定rowkey获取唯一一条记录</li>
+<li>通过scan方式，设置startRow和stopRow参数进行范围匹配</li>
+<li>全表扫描，即直接扫描整张表中所有行记录</li>
+</ol>
+<h2 id="rowkey长度原则"><a href="#rowkey长度原则" class="headerlink" title="rowkey长度原则"></a>rowkey长度原则</h2><a id="more"></a>
+<p>rowkey是一个二进制码流，可以是任意字符串，最大长度 <em>64kb</em> ，实际应用中一般为10-100bytes，以 <code>byte[]</code> 形式保存，一般设计成定长。</p>
+<p>建议越短越好，不要超过16个字节，原因如下：</p>
+<ol>
+<li>数据的持久化文件HFile中是按照KeyValue存储的，如果rowkey过长，比如超过100字节，1000w行数据，光rowkey就要占用100*1000w=10亿个字节，将近1G数据，这样会极大影响HFile的存储效率；</li>
+<li>MemStore将缓存部分数据到内存，如果rowkey字段过长，内存的有效利用率就会降低，系统不能缓存更多的数据，这样会降低检索效率。</li>
+<li>目前操作系统都是64位系统，内存8字节对齐，控制在16个字节，8字节的整数倍利用了操作系统的最佳特性。</li>
+</ol>
+<h2 id="rowkey散列原则"><a href="#rowkey散列原则" class="headerlink" title="rowkey散列原则"></a>rowkey散列原则</h2><p>如果rowkey按照时间戳的方式递增，不要将时间放在二进制码的前面，建议将rowkey的高位作为散列字段，由程序随机生成，低位放时间字段，这样将提高数据均衡分布在每个RegionServer，以实现负载均衡的几率。如果没有散列字段，首字段直接是时间信息，所有的数据都会集中在一个RegionServer上，这样在数据检索的时候负载会集中在个别的RegionServer上，造成热点问题，会降低查询效率。</p>
+<h2 id="rowkey唯一原则"><a href="#rowkey唯一原则" class="headerlink" title="rowkey唯一原则"></a>rowkey唯一原则</h2><p>必须在设计上保证其唯一性，rowkey是按照字典顺序排序存储的，因此，设计rowkey的时候，要充分利用这个排序的特点，将经常读取的数据存储到一块，将最近可能会被访问的数据放到一块。</p>
+<h2 id="什么是热点"><a href="#什么是热点" class="headerlink" title="什么是热点"></a>什么是热点</h2><p>HBase中的行是按照rowkey的字典顺序排序的，这种设计优化了scan操作，可以将相关的行以及会被一起读取的行存取在临近位置，便于scan。然而糟糕的rowkey设计是热点的源头。 热点发生在大量的client直接访问集群的一个或极少数个节点（访问可能是读，写或者其他操作）。大量访问会使热点region所在的单个机器超出自身承受能力，引起性能下降甚至region不可用，这也会影响同一个RegionServer上的其他region，由于主机无法服务其他region的请求。 设计良好的数据访问模式以使集群被充分，均衡的利用。</p>
+<p>为了避免写热点，设计rowkey使得不同行在同一个region，但是在更多数据情况下，数据应该被写入集群的多个region，而不是一个。</p>
+<p>下面是一些常见的避免热点的方法以及它们的优缺点：</p>
+<h4 id="加盐"><a href="#加盐" class="headerlink" title="加盐"></a>加盐</h4><p>这里所说的加盐不是密码学中的加盐，而是在rowkey的前面增加随机数，具体就是给rowkey分配一个随机前缀以使得它和之前的rowkey的开头不同。分配的前缀种类数量应该和你想使用数据分散到不同的region的数量一致。加盐之后的rowkey就会根据随机生成的前缀分散到各个region上，以避免热点。</p>
+<h4 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h4><p>哈希会使同一行永远用一个前缀加盐。哈希也可以使负载分散到整个集群，但是读却是可以预测的。使用确定的哈希可以让客户端重构完整的rowkey，可以使用get操作准确获取某一个行数据</p>
+<h4 id="反转"><a href="#反转" class="headerlink" title="反转"></a>反转</h4><p>第三种防止热点的方法时反转固定长度或者数字格式的rowkey。这样可以使得rowkey中经常改变的部分（最没有意义的部分）放在前面。这样可以有效的随机rowkey，但是牺牲了rowkey的有序性。</p>
+<p>反转rowkey的例子以手机号为rowkey，可以将手机号反转后的字符串作为rowkey，这样的就避免了以手机号那样比较固定开头导致热点问题</p>
+<h4 id="时间戳反转"><a href="#时间戳反转" class="headerlink" title="时间戳反转"></a>时间戳反转</h4><p>一个常见的数据处理问题是快速获取数据的最近版本，使用反转的时间戳作为rowkey的一部分对这个问题十分有用，可以用 <code>Long.Max_Value - timestamp</code> 追加到key的末尾，例如 <code>[key][reverse_timestamp]</code> , <code>[key]</code> 的最新值可以通过scan [key]获得[key]的第一条记录，因为HBase中rowkey是有序的，第一条记录是最后录入的数据。</p>
+<p>比如需要保存一个用户的操作记录，按照操作时间倒序排序，在设计rowkey的时候，可以这样设计</p>
+<p>[userId反转][Long.Max_Value - timestamp]，在查询用户的所有操作记录数据的时候，直接指定反转后的userId，startRow是[userId反转][000000000000],stopRow是[userId反转][Long.Max_Value - timestamp]</p>
+<p>如果需要查询某段时间的操作记录，startRow是[user反转][Long.Max_Value - 起始时间]，stopRow是[userId反转][Long.Max_Value - 结束时间]</p>
+<p>其他一些建议</p>
+<ul>
+<li>尽量减少行和列的大小在HBase中，value永远和它的key一起传输的。当具体的值在系统间传输时，它的rowkey，列名，时间戳也会一起传输。如果你的rowkey和列名很大，甚至可以和具体的值相比较，那么你将会遇到一些有趣的问题。HBase storefiles中的索引（有助于随机访问）最终占据了HBase分配的大量内存，因为具体的值和它的key很大。可以增加block大小使得storefiles索引再更大的时间间隔增加，或者修改表的模式以减小rowkey和列名的大小。压缩也有助于更大的索引。</li>
+<li>列族尽可能越短越好，最好是一个字符</li>
+<li>冗长的属性名虽然可读性好，但是更短的属性名存储在HBase中会更好</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/bigdata/hbase-rowkey-rules.html">Hbase Rowkey设计规范参考</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
+        <p><span>发布时间:</span>2018-10-25, 15:14:23</p>
+        <p><span>最后更新:</span>2018-11-28, 23:18:50</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/bigdata/hbase-rowkey-rules.html" title="Hbase Rowkey设计规范参考">http://1byte.pro/bigdata/hbase-rowkey-rules.html</a>
+            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/bigdata/hbase-rowkey-rules.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/python/celery-exc-type-error.html">
+                    Celery任务状态报错一例
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/bigdata/zookeeper-election-rules.html">
+                    Zookeeper选举机制
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rowkey长度原则"><span class="toc-number">1.</span> <span class="toc-text">rowkey长度原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rowkey散列原则"><span class="toc-number">2.</span> <span class="toc-text">rowkey散列原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rowkey唯一原则"><span class="toc-number">3.</span> <span class="toc-text">rowkey唯一原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是热点"><span class="toc-number">4.</span> <span class="toc-text">什么是热点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#加盐"><span class="toc-number">4.0.1.</span> <span class="toc-text">加盐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#哈希"><span class="toc-number">4.0.2.</span> <span class="toc-text">哈希</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反转"><span class="toc-number">4.0.3.</span> <span class="toc-text">反转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#时间戳反转"><span class="toc-number">4.0.4.</span> <span class="toc-text">时间戳反转</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+
+    
+        <div class="addthis_sharing_toolbox"></div>
+    
+</div>
+
+
+
+
+
+
+
+    
+        <section id="comments">
+    <style> aside.comment-bar { margin: auto 30px; }</style>
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function(){
+            this.page.url = 'http://1byte.pro/bigdata/hbase-rowkey-rules.html';
+            this.page.identifier = 'bigdata/hbase-rowkey-rules.html';
+        };
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = '//cancellara.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+</section>
+
+
+    <script id="dsq-count-scr" src="//cancellara.disqus.com/count.js" async></script>
+    <span class="disqus-comment-count" data-disqus-identifier="bigdata/hbase-rowkey-rules.html"></span>
+    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/bigdata/hbase-rowkey-rules.html"></span>
+    <script>
+        $(".disqus-comment-count").hide();
+        var $disqusCount = $(".disqus-comment-count");
+        $disqusCount.bind("DOMNodeInserted", function(e) {
+            $(".count-comment").text(
+                $(this).text().replace(/[^0-9]/ig,"")
+            )
+            DISQUSWIDGETS.getCount({reset: true});
+        })
+    </script>
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/python/celery-exc-type-error.html" title="上一篇: Celery任务状态报错一例">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/bigdata/zookeeper-election-rules.html" title="下一篇: Zookeeper选举机制">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/python/celery-exc-type-error.html">Celery任务状态报错一例</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/hbase-rowkey-rules.html">Hbase Rowkey设计规范参考</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/zookeeper-election-rules.html">Zookeeper选举机制</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/deploy-node-exporter-by-ansible.html">利用Ansible Playbook批量部署node_exporter</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/foreach-forearchpartition.html">Spark性能优化之foreach与foreachPartition</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/kafka-flume.html">Kafka与Flume区别</a></li><li class="post-list-item"><a class="post-list-link" href="/coding/scala-exception-handler.html">Scala异常获取一例</a></li><li class="post-list-item"><a class="post-list-link" href="/opinions/fake-chrome.html">红芯浏览器下载</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/gitlab-trouble-shooting.html">Gitlab问题小结</a></li><li class="post-list-item"><a class="post-list-link" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a></li><li class="post-list-item"><a class="post-list-link" href="/voice/v.html">V</a></li><li class="post-list-item"><a class="post-list-link" href="/bigdata/hadoop-banlancer.html">Hadoop集群中banlancer用法简介</a></li><li class="post-list-item"><a class="post-list-link" href="/issues/jira-over-https.html">Nginx开启HTTPS反向代理访问Jira失败</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-client.html">FreeIPA Client 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/install-freeipa-server-on-centos.html">FreeIPA Server 端部署</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/RobustnessOfShellScript.html">如何写出健壮的 Bash 脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/devops/ansible-basics-playbook.html">Ansible基础-Playbook入门</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/collectd.html">collectd</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/seyren.html">Deploy Seyren with Grafana on Ubuntu 14.04</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/grafana.html">Deploy Graphite with Grafana on Ubuntu 14.04 (Part Ⅱ)</a></li><li class="post-list-item"><a class="post-list-link" href="/monitoring/graphite.html">Deploy Graphite with Grafana on Ubuntu 14.04(Part Ⅰ)</a></li><li class="post-list-item"><a class="post-list-link" href="/python/date-of-python.html">Python日期自然月加减实操</a></li><li class="post-list-item"><a class="post-list-link" href="/jenkins/jenkins.html">Jenkins Operation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/install-jira-manully.html">Jira Manully Install</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/add-logrotate-to-percona-container.html">percona容器添加logrotate功能</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/compile-image.html">Percona容器部署</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/ss5.html">SS5 Installation</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/docker-deployment.html">Docker deployment</a></li><li class="post-list-item"><a class="post-list-link" href="/docker/fabfile.html">vpnporxy 部署纪要</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2019 Gavin Wei
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-123125086-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
