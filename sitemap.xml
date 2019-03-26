@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://1byte.pro/python/celery-exc-type-error.html</loc>
+    <loc>http://1byte.pro/python/flask-request.html</loc>
     
-    <lastmod>2019-03-24T10:00:19.903Z</lastmod>
+    <lastmod>2019-03-26T08:09:04.933Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://1byte.pro/wallstreetcn/index.html</loc>
     
-    <lastmod>2019-03-24T10:00:04.998Z</lastmod>
+    <lastmod>2019-03-26T08:00:06.384Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://1byte.pro/python/celery-exc-type-error.html</loc>
+    
+    <lastmod>2019-03-24T10:00:19.903Z</lastmod>
     
   </url>
   

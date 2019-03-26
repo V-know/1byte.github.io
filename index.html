@@ -260,6 +260,85 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-flask-request" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/python/flask-request.html" class="article-date">
+      <time datetime="2019-03-26T08:07:46.000Z" itemprop="datePublished">2019-03-26</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/python/flask-request.html">flask-request</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="一、post-请求-Content-Type-application-json"><a href="#一、post-请求-Content-Type-application-json" class="headerlink" title="一、post 请求 (Content-Type: application/json)"></a>一、post 请求 (Content-Type: application/json)</h2><ol>
+<li><p><code>c = request.get_data()</code></p>
+<p>  可以获取未经处理过的原始数据而不管内容类型,如果数据格式是json的，则取得的是json字符串，排序和请求参数一致</p>
+</li>
+<li><p><code>c =request.get_json()</code></p>
+<p>  将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则</p>
+</li>
+<li><p><code>c = request.data</code></p>
+<p>  可以获取未经处理过的原始数据，如果数据格式是json的，则取得的是json字符串，排序和请求参数一致</p>
+</li>
+<li><p><code>c = request.json</code></p>
+<p>  刚开始使用的时候以为是一个方法这样调用request.json()然后报错如下：<br>  Content-Type: application/json时报错’dict’ object is not callable<br>  原来是个属性，因此这样使用request.json,就能正常使用了总结如下：<br>  将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则</p>
+</li>
+</ol>
+<h2 id="二、get请求"><a href="#二、get请求" class="headerlink" title="二、get请求"></a>二、get请求</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">request.args.get(<span class="string">'key'</span>) <span class="comment"># 可以获取到单个的值，</span></span><br><span class="line">requestValues = request.args <span class="comment"># 可以获取get请求的所有参数返回值是ImmutableMultiDict类型,</span></span><br><span class="line">requestValues.to_dict() <span class="comment">#将获得的参数转换为字典</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">Python</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flask/">Flask</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">Python</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-celery-exc-type-error" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -892,79 +971,6 @@
       
         <p class="article-more-link">
           <a href="/issues/gitlab-trouble-shooting.html#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-chromium-on-centos-for-selenium" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/python/chromium-on-centos-for-selenium.html" class="article-date">
-      <time datetime="2018-08-06T23:54:09.000Z" itemprop="datePublished">2018-08-07</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/python/chromium-on-centos-for-selenium.html">无GUI的CentOS上使用Selenium+Chrome</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>客户的网站上的监测代码最近连续两次在网站更新时被清除掉，导致无法正常获取网站访问数据，影响到后续大数据分析。</p>
-<p>为解决这个问题，决定使用Python <code>Selenium</code>模块来实现网站按钮模拟点击，同时监测我们后台是否能正常收到，以此来判断网站按钮监测代码是否有正常部署。</p>
-<p><code>Selenium</code>很好用很强大，开发和部署也都很简单，是自动化测试非常好的工具，但是问题是我们需要在无GUI的服务器上进行部署，这就牵涉到在无GUI的服务器上安装浏览器的问题，我这里选择的是Chrome。</p>
-<hr>
-<p>下面简单分享一个部署过程中遇到的坑，也当作是总结。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/python/">Python</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chromium/">Chromium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/selenium/">Selenium</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/python/chromium-on-centos-for-selenium.html#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

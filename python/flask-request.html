@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。 均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低">
-<meta name="keywords" content="Hadoop,BigData">
+<meta name="description" content="一、post 请求 (Content-Type: application/json) c = request.get_data()   可以获取未经处理过的原始数据而不管内容类型,如果数据格式是json的，则取得的是json字符串，排序和请求参数一致  c =request.get_json()   将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则  c = request.">
+<meta name="keywords" content="Python,Flask">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop集群中banlancer用法简介">
-<meta property="og:url" content="http://1byte.pro/bigdata/hadoop-banlancer.html">
+<meta property="og:title" content="flask-request">
+<meta property="og:url" content="http://1byte.pro/python/flask-request.html">
 <meta property="og:site_name" content="Just 1 Byte">
-<meta property="og:description" content="随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。 均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低">
+<meta property="og:description" content="一、post 请求 (Content-Type: application/json) c = request.get_data()   可以获取未经处理过的原始数据而不管内容类型,如果数据格式是json的，则取得的是json字符串，排序和请求参数一致  c =request.get_json()   将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则  c = request.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-03T04:06:12.855Z">
+<meta property="og:updated_time" content="2019-03-26T08:09:04.933Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop集群中banlancer用法简介">
-<meta name="twitter:description" content="随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。 均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低">
+<meta name="twitter:title" content="flask-request">
+<meta name="twitter:description" content="一、post 请求 (Content-Type: application/json) c = request.get_data()   可以获取未经处理过的原始数据而不管内容类型,如果数据格式是json的，则取得的是json字符串，排序和请求参数一致  c =request.get_json()   将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则  c = request.">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Hadoop集群中banlancer用法简介 | Just 1 Byte</title>
+<title>flask-request | Just 1 Byte</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -256,11 +256,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-hadoop-banlancer" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-flask-request" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/bigdata/hadoop-banlancer.html" class="article-date">
-      <time datetime="2018-05-02T20:00:39.000Z" itemprop="datePublished">2018-05-03</time>
+      <a href="/python/flask-request.html" class="article-date">
+      <time datetime="2019-03-26T08:07:46.000Z" itemprop="datePublished">2019-03-26</time>
 </a>
 
 
@@ -275,7 +275,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hadoop集群中banlancer用法简介
+      flask-request
     </h1>
   
 
@@ -284,13 +284,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">BigData</a>
+    <a class="article-category-link" href="/categories/python/">Python</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bigdata/">BigData</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">Hadoop</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flask/">Flask</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">Python</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -300,13 +300,21 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>随着时间的推移，各个datanode上的块会分布得越来越不均衡。不均衡的Hadoop集群会降低MapReduce的本地性，导致部分 datanode 相对更为繁忙。我们应尽力避免出现这种情况。</p>
-<p>均衡器（loadbalancer）程序是一个 Hadoop 守护进程，它将块从忙碌的 datanode 移到 相对空闲的 datanode，从而重新分配块。同进坚持复本放置策略，将复本分散到不同机架，以降低数据损失概率。它不断移动块，直到集群达到均衡，即每个 datanode 的使用率（该节点上已使用的空间与空间容量之间的比率）和集群的使用率（集群中已使用的空间与集群的空间容量之间的比率）非常接近，差距不超过给定的阀值（默认为10%）。可调用下面指令启动均衡器：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$path_to_hadoop</span>/bin/start-balancer<span class="selector-class">.sh</span> -t <span class="number">10%</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>-t 选项指定阈值，以判定集群是否均衡。这个标记是可选的；若不使用，默认阈值是10%。在任何时刻，集群中都只运行一个均衡器。</li>
-</ul>
-<p>均衡器会一直运行，直到集群变均衡；之后，集群无法移动任何块，或与 namenode 失去联系。均衡器在标准日志目录中创建一个日志文件 ，记录每次重新分配过程（第次运行记录一行）。</p>
-<p>为了降低集群负何、避免干扰其它用户，均衡器被设计为在后台运行。在不同节点之间复制数据的带宽也是受限的。默认值是很小的 1MB/s，可以通过 <code>hdfs-site.xml</code> 文件中 <code>df.balance.bandwidthPerSec</code> 属性指定（单位是字节）。</p>
+        <h2 id="一、post-请求-Content-Type-application-json"><a href="#一、post-请求-Content-Type-application-json" class="headerlink" title="一、post 请求 (Content-Type: application/json)"></a>一、post 请求 (Content-Type: application/json)</h2><ol>
+<li><p><code>c = request.get_data()</code></p>
+<p>  可以获取未经处理过的原始数据而不管内容类型,如果数据格式是json的，则取得的是json字符串，排序和请求参数一致</p>
+</li>
+<li><p><code>c =request.get_json()</code></p>
+<p>  将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则</p>
+</li>
+<li><p><code>c = request.data</code></p>
+<p>  可以获取未经处理过的原始数据，如果数据格式是json的，则取得的是json字符串，排序和请求参数一致</p>
+</li>
+<li><p><code>c = request.json</code></p>
+<p>  刚开始使用的时候以为是一个方法这样调用request.json()然后报错如下：<br>  Content-Type: application/json时报错’dict’ object is not callable<br>  原来是个属性，因此这样使用request.json,就能正常使用了总结如下：<br>  将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则</p>
+</li>
+</ol>
+<h2 id="二、get请求"><a href="#二、get请求" class="headerlink" title="二、get请求"></a>二、get请求</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">request.args.get(<span class="string">'key'</span>) <span class="comment"># 可以获取到单个的值，</span></span><br><span class="line">requestValues = request.args <span class="comment"># 可以获取get请求的所有参数返回值是ImmutableMultiDict类型,</span></span><br><span class="line">requestValues.to_dict() <span class="comment">#将获得的参数转换为字典</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -315,13 +323,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/bigdata/hadoop-banlancer.html">Hadoop集群中banlancer用法简介</a></p>
+        <p><span>本文标题:</span><a href="/python/flask-request.html">flask-request</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Gavin Wei</a></p>
-        <p><span>发布时间:</span>2018-05-03, 04:00:39</p>
-        <p><span>最后更新:</span>2018-09-03, 12:06:12</p>
+        <p><span>发布时间:</span>2019-03-26, 16:07:46</p>
+        <p><span>最后更新:</span>2019-03-26, 16:09:04</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/bigdata/hadoop-banlancer.html" title="Hadoop集群中banlancer用法简介">http://1byte.pro/bigdata/hadoop-banlancer.html</a>
-            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/bigdata/hadoop-banlancer.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/python/flask-request.html" title="flask-request">http://1byte.pro/python/flask-request.html</a>
+            <span class="copy-path" data-clipboard-text="原文: http://1byte.pro/python/flask-request.html　　作者: Gavin Wei" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -333,16 +341,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/voice/v.html">
-                    V
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/issues/jira-over-https.html">
-                    Nginx开启HTTPS反向代理访问Jira失败
+                <a href="/python/celery-exc-type-error.html">
+                    Celery任务状态报错一例
                 </a>
             </div>
         
@@ -354,7 +356,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、post-请求-Content-Type-application-json"><span class="toc-number">1.</span> <span class="toc-text">一、post 请求 (Content-Type: application/json)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、get请求"><span class="toc-number">2.</span> <span class="toc-text">二、get请求</span></a></li></ol>
         
     </div>
     <style>
@@ -397,8 +399,8 @@
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function(){
-            this.page.url = 'http://1byte.pro/bigdata/hadoop-banlancer.html';
-            this.page.identifier = 'bigdata/hadoop-banlancer.html';
+            this.page.url = 'http://1byte.pro/python/flask-request.html';
+            this.page.identifier = 'python/flask-request.html';
         };
         var loadComment = function(){
             var d = document, s = d.createElement('script');
@@ -437,8 +439,8 @@
 
 
     <script id="dsq-count-scr" src="//cancellara.disqus.com/count.js" async></script>
-    <span class="disqus-comment-count" data-disqus-identifier="bigdata/hadoop-banlancer.html"></span>
-    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/bigdata/hadoop-banlancer.html"></span>
+    <span class="disqus-comment-count" data-disqus-identifier="python/flask-request.html"></span>
+    <span class="disqus-comment-count" data-disqus-url="http://1byte.pro/python/flask-request.html"></span>
     <script>
         $(".disqus-comment-count").hide();
         var $disqusCount = $(".disqus-comment-count");
@@ -458,15 +460,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/voice/v.html" title="上一篇: V">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/issues/jira-over-https.html" title="下一篇: Nginx开启HTTPS反向代理访问Jira失败">
+            <a href="/python/celery-exc-type-error.html" title="下一篇: Celery任务状态报错一例">
                 <i class="fa fa-angle-right"></i>
             </a>
         
