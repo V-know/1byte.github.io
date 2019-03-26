@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title>flask-request</title>
+      <title>Flask request小结</title>
       <link href="/python/flask-request.html"/>
       <url>/python/flask-request.html</url>
       <content type="html"><![CDATA[<h2 id="一、post-请求-Content-Type-application-json"><a href="#一、post-请求-Content-Type-application-json" class="headerlink" title="一、post 请求 (Content-Type: application/json)"></a>一、post 请求 (Content-Type: application/json)</h2><ol><li><p><code>c = request.get_data()</code></p><p>  可以获取未经处理过的原始数据而不管内容类型,如果数据格式是json的，则取得的是json字符串，排序和请求参数一致</p></li><li><p><code>c =request.get_json()</code></p><p>  将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则</p></li><li><p><code>c = request.data</code></p><p>  可以获取未经处理过的原始数据，如果数据格式是json的，则取得的是json字符串，排序和请求参数一致</p></li><li><p><code>c = request.json</code></p><p>  刚开始使用的时候以为是一个方法这样调用request.json()然后报错如下：<br>  Content-Type: application/json时报错’dict’ object is not callable<br>  原来是个属性，因此这样使用request.json,就能正常使用了总结如下：<br>  将请求参数做了处理，得到的是字典格式的，因此排序会打乱依据字典排序规则</p></li></ol><h2 id="二、get请求"><a href="#二、get请求" class="headerlink" title="二、get请求"></a>二、get请求</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">request.args.get(<span class="string">'key'</span>) <span class="comment"># 可以获取到单个的值，</span></span><br><span class="line">requestValues = request.args <span class="comment"># 可以获取get请求的所有参数返回值是ImmutableMultiDict类型,</span></span><br><span class="line">requestValues.to_dict() <span class="comment">#将获得的参数转换为字典</span></span><br></pre></td></tr></table></figure>]]></content>
