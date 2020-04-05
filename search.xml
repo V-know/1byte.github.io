@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>配置windows端口转发</title>
+      <link href="/docs/port-forwar-for-wins.html"/>
+      <url>/docs/port-forwar-for-wins.html</url>
+      <content type="html"><![CDATA[<p>查看现有转发情况<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy show  all | v4tov4</span><br></pre></td></tr></table></figure></p><p>增加端口转发<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface portproxy add v4tov4 listenaddress="<span class="number">172</span>.<span class="number">16</span>.<span class="number">0</span>.<span class="number">21</span>" listenport=<span class="number">22</span> connectaddress="<span class="number">192</span>.<span class="number">168</span>.<span class="number">159</span>.<span class="number">129</span>"  connectport=<span class="number">22</span></span><br></pre></td></tr></table></figure></p><ul><li>listenaddress: 转发机器本地的地址</li><li>connectaddress: 目的机器的地址</li></ul>]]></content>
+      
+      <categories>
+          
+          <category> docs </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 端口转发 </tag>
+            
+            <tag> Windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Ansible sysctl模块去重BUG</title>
       <link href="/python/ansible-sysctl.html"/>
       <url>/python/ansible-sysctl.html</url>
@@ -188,13 +211,13 @@
       
         <tags>
             
-            <tag> Ansible </tag>
-            
-            <tag> Playbook </tag>
-            
             <tag> Prometheus </tag>
             
             <tag> Monitor </tag>
+            
+            <tag> Ansible </tag>
+            
+            <tag> Playbook </tag>
             
         </tags>
       
@@ -531,11 +554,11 @@
       
         <tags>
             
-            <tag> Monitoring </tag>
-            
             <tag> graphite </tag>
             
             <tag> grafana </tag>
+            
+            <tag> Monitoring </tag>
             
             <tag> ubuntu </tag>
             
@@ -560,11 +583,11 @@
       
         <tags>
             
-            <tag> Monitoring </tag>
-            
             <tag> graphite </tag>
             
             <tag> grafana </tag>
+            
+            <tag> Monitoring </tag>
             
             <tag> ubuntu </tag>
             
@@ -587,11 +610,11 @@
       
         <tags>
             
-            <tag> Monitoring </tag>
-            
             <tag> graphite </tag>
             
             <tag> grafana </tag>
+            
+            <tag> Monitoring </tag>
             
             <tag> ubuntu </tag>
             
