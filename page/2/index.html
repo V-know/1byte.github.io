@@ -260,6 +260,76 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-scala-exception-handler" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/coding/scala-exception-handler.html" class="article-date">
+      <time datetime="2018-08-21T09:55:51.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/coding/scala-exception-handler.html">Scala异常获取一例</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>在处理第11行读文件时，由于数据文件出现的不规律，在指定日期内可能存在日志文件不存在的情况，这里需要处理下异常：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readLog</span></span>(sc: <span class="type">SparkContext</span>, startDate: <span class="type">String</span>, endDate: <span class="type">String</span>, logNames: <span class="type">List</span>[<span class="type">String</span>]): <span class="type">RDD</span>[<span class="type">String</span>] = &#123;</span><br><span class="line">  <span class="keyword">val</span> dateLst = <span class="type">DateUtils</span>.getDateListBetweenTwoDate(startDate, endDate)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> logRdd = sc.makeRDD(<span class="type">List</span>[<span class="type">String</span>]())</span><br><span class="line">  <span class="keyword">for</span> (date &lt;- dateLst) &#123;</span><br><span class="line">    <span class="keyword">val</span> year = date.substring(<span class="number">0</span>, <span class="number">4</span>)</span><br><span class="line">    <span class="keyword">val</span> month = date.substring(<span class="number">4</span>, <span class="number">6</span>)</span><br><span class="line">    <span class="keyword">val</span> day = date.substring(<span class="number">6</span>, <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">for</span> (logName &lt;- logNames) &#123;</span><br><span class="line">       <span class="keyword">val</span> logRdd = logRdd.union(</span><br><span class="line">        <span class="keyword">try</span> &#123;sc.textFile(<span class="string">s"cosn://fuge/mid-data/fuge/ssp/bid-log/<span class="subst">$year</span>/<span class="subst">$month</span>/<span class="subst">$day</span>/<span class="subst">$&#123;logName&#125;</span>*"</span>)</span><br><span class="line">          .map(x =&gt; x.split(<span class="string">"\\|"</span>, <span class="number">-1</span>))</span><br><span class="line">          .filter(x =&gt; x.length &gt;= <span class="number">2</span> &amp;&amp; (x(<span class="number">1</span>).trim == <span class="string">"6"</span> || x(<span class="number">1</span>).trim == <span class="string">"0"</span>)).map(_.toString) <span class="comment">// 0和6为请求成功的状态码</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">          <span class="keyword">case</span> _: <span class="type">Exception</span> =&gt; sc.makeRDD(<span class="type">List</span>[<span class="type">String</span>]())</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  logRdd</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/coding/">Coding</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/exception/">Exception</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">Scala</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/coding/scala-exception-handler.html#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-fake-chrome" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -899,78 +969,6 @@
 
 
   
-    <article id="post-ansible-basics-playbook" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/devops/ansible-basics-playbook.html" class="article-date">
-      <time datetime="2017-07-07T16:15:35.000Z" itemprop="datePublished">2017-07-07</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/devops/ansible-basics-playbook.html">Ansible基础-Playbook入门</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://upload-images.jianshu.io/upload_images/1377560-04a1e244789486fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">难度指数: 4星(满星5星)</span></span><br><span class="line"><span class="section">技术指数: 5星(满星5星)</span></span><br><span class="line"><span class="section">理论指数: 4星(满星5星)</span></span><br><span class="line"><span class="section">面向人群: 自动化运维&amp;运维开发</span></span><br></pre></td></tr></table></figure>
-<h1 id="1-Playbook简介"><a href="#1-Playbook简介" class="headerlink" title="1.    Playbook简介"></a>1.    Playbook简介</h1><p>像很多其它配置文件管理方法一样，Ansible使用一种比较直白的方法来描述自己的任务配置文件。<br>Ansible 的任务配置文件被称之为“playbook”，我们可以称之为“剧本”。每一出剧本（playbook）中都包含一系列的任务，这每个任务在ansible中又被称为一出“戏剧”（play）。一个剧本（playbook）中包含多出戏剧（play），这很容易理解。</p>
-<p>为了便于理解，再给大家举个栗子~<br>
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/devops/">Devops</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/playbook/">Playbook</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/devops/ansible-basics-playbook.html#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -982,7 +980,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016-2019 Gavin Wei
+                2016-2020 Gavin Wei
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a>

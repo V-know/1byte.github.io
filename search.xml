@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>Ansible sysctl模块去重BUG</title>
+      <link href="/python/ansible-sysctl.html"/>
+      <url>/python/ansible-sysctl.html</url>
+      <content type="html"><![CDATA[<p>Asnbile的sysctl模块可以方便优雅地修改系统文件/etc/sysct.conf文件，但是当sysctl.conf文件中存在一个变量定义两次的情况要特别注意。</p><p>当文件中一个变量前后出现两次或多次的时候，sysctl.conf 文件本身的默认规则是以最后一次出现的时值为准。</p><p>但是在这种情况下，如果使用sysctl模块去修改其它变量，sysctl模块会自动对sysctl.conf文件中的变量做去重，并以第一次匹配到的值为准。这刚好与sysctl.conf的默认规则相反。</p><p> <a href="https://github.com/ansible/ansible/issues/33974" target="_blank" rel="noopener">Bug report</a></p><blockquote><p>建议：不要在sysctl.conf文件中重复给变量赋值。</p></blockquote>]]></content>
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Flask </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Flask sqlalchemy 设置默认时间</title>
       <link href="/python/get-default-time-for-flask-sqlalchemy.html"/>
       <url>/python/get-default-time-for-flask-sqlalchemy.html</url>
@@ -165,13 +188,13 @@
       
         <tags>
             
-            <tag> Prometheus </tag>
-            
-            <tag> Monitor </tag>
-            
             <tag> Ansible </tag>
             
             <tag> Playbook </tag>
+            
+            <tag> Prometheus </tag>
+            
+            <tag> Monitor </tag>
             
         </tags>
       
@@ -508,11 +531,11 @@
       
         <tags>
             
+            <tag> Monitoring </tag>
+            
             <tag> graphite </tag>
             
             <tag> grafana </tag>
-            
-            <tag> Monitoring </tag>
             
             <tag> ubuntu </tag>
             
@@ -537,11 +560,11 @@
       
         <tags>
             
+            <tag> Monitoring </tag>
+            
             <tag> graphite </tag>
             
             <tag> grafana </tag>
-            
-            <tag> Monitoring </tag>
             
             <tag> ubuntu </tag>
             
@@ -564,11 +587,11 @@
       
         <tags>
             
+            <tag> Monitoring </tag>
+            
             <tag> graphite </tag>
             
             <tag> grafana </tag>
-            
-            <tag> Monitoring </tag>
             
             <tag> ubuntu </tag>
             
